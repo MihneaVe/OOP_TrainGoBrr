@@ -1,8 +1,8 @@
 #include <iostream>
 
-///____----____----____----____----____----____----HereGoNotes----____----____----____----____----____----____\\\
+///____----____----____----____----____----____----HereGoNotes----____----____----____----____----____----____|||
 
-/////////////////////////////////////////////////////////////////////////
+
 /// Trebuie să aveți în fișierul tastatura.txt suficiente date de intrare
 /// (în formatul impus de voi) astfel încât execuția programului să se încheie.
 /// De asemenea, trebuie să adăugați în acest fișier date de intrare
@@ -16,11 +16,9 @@
 /// testez codul cu ce date de intrare am chef și să nu pun notă dacă găsesc vreun bug.
 /// Impun această cerință ca să învățați să faceți un demo și să arătați părțile din
 /// program care merg (și să le evitați pe cele care nu merg).
-/////////////////////////////////////////////////////////////////////////
 
 
-///____----____----____----____----____----____----HereGoCode----____----____----____----____----____----____\\\
-
+///____----____----____----____----____----____----HereGoCode----____----____----____----____----____----____|||
 
 class TakeAnAction_MainMenu {
 private:
