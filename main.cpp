@@ -80,12 +80,13 @@ public:
     }
 
     // Destructor
-    ~TakeAnAction_MainMenu() {}
+    ~TakeAnAction_MainMenu() = default;
 };
 
 
 int main() {
     TakeAnAction_MainMenu play;
     play.PrintOptions();
+    cout<<"";
     return 0;
 }
