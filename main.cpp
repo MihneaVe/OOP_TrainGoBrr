@@ -1,11 +1,11 @@
 #include <iostream>
 #include <array>
-
+using namespace std;
 int main() {
-    std::cout << "Hello, world!\n";
-    std::array<int, 100> v{};
+    cout << "Hello, world!\n";
+    array<int, 100> v{};
     int nr;
-    std::cout << "Introduceți nr: ";
+    cout << "Introduceti nr: ";
     /////////////////////////////////////////////////////////////////////////
     /// Observație: dacă aveți nevoie să citiți date de intrare de la tastatură,
     /// dați exemple de date de intrare folosind fișierul tastatura.txt
@@ -26,16 +26,16 @@ int main() {
     /// program care merg (și să le evitați pe cele care nu merg).
     ///
     /////////////////////////////////////////////////////////////////////////
-    std::cin >> nr;
+    cin >> nr;
     /////////////////////////////////////////////////////////////////////////
     for(int i = 0; i < nr; ++i) {
-        std::cout << "v[" << i << "] = ";
-        std::cin >> v[i];
+        cout << "v[" << i << "] = ";
+        cin >> v[i];
     }
-    std::cout << "\n\n";
-    std::cout << "Am citit de la tastatură " << nr << " elemente:\n";
+    cout << "\n\n";
+    cout << "Am citit de la tastatura " << nr << " elemente:\n";
     for(int i = 0; i < nr; ++i) {
-        std::cout << "- " << v[i] << "\n";
+        cout << "- " << v[i] << "\n";
     }
     ///////////////////////////////////////////////////////////////////////////
     /// Pentru date citite din fișier, NU folosiți tastatura.txt. Creați-vă voi
