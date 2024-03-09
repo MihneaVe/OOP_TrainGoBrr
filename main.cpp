@@ -32,6 +32,8 @@
 
 
 ///____----____----____----____----____----____----HereGoCode----____----____----____----____----____----____|||
+
+///Inbound/Outbound Class (Read Type)
 class TakeAnAction_View {
 private:
     int x;
