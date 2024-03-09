@@ -19,6 +19,7 @@
 // Impun această cerință ca să învățați să faceți un demo și să arătați părțile din
 // program care merg (și să le evitați pe cele care nu merg).
 
+
 ///This project will note classes by the following types:
 
 ///---Read---
