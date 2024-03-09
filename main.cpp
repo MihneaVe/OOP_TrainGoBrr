@@ -32,7 +32,19 @@
 
 
 ///____----____----____----____----____----____----HereGoCode----____----____----____----____----____----____|||
-class TakeAnAction_View;
+class TakeAnAction_View {
+private:
+    int x;
+    std::string p;
+public:
+    void ListTrainsIN();
+    void WantReturn();
+    explicit TakeAnAction_View() : x(0){
+        std::cout << "List of InBound Trains today:" << "\n\n";
+        std::cout << "ID--------------Company--------------Will Arrive At--------------Delay--------------From\n";
+    }
+    ~TakeAnAction_View() = default;
+};
 
 
 
@@ -41,7 +53,7 @@ class TakeAnAction_MainMenu {
 private:
     int x; // Variable to store input
     const int pass = 989125; // Variable to contain the admin password
-    TakeAnAction_View* view; //Pointer to previously declared class
+    TakeAnAction_View* view{}; //Pointer to previously declared class
 public:
     void PrintOptions() { // Method to list possible choices at the start of the app
         std::cout << "What do you wish to do? (insert number and press enter to select)"<<"\n";
@@ -64,7 +76,7 @@ public:
             std::cout << "You have chosen to ";
             if (x == 1) {
                 std::cout<<"view inbound trains.";
-                //view.ListTrainsIN(); For some reason this does not seem to work, have also tried -> instead of "."
+                view->ListTrainsIN();
             } else if (x == 2) {
                 std::cout<<"view outbound trains.";
             } else if (x == 3) {
@@ -98,16 +110,11 @@ public:
 };
 
 ///Inbound/Outbound Trains Class (Read Type)
-class TakeAnAction_View{
-private:
-    int x;
-    std::string p;
-public:
-    void ListTrainsIN(){
-        std::ifstream fin("inbound.txt");
+     void TakeAnAction_View::ListTrainsIN(){
+        std::ifstream fin("Inbound.txt");
         if (!fin.is_open()){
-            std::cout << "There has been an error! Inbound train file missing or not open! Please report to admin!";
-            std::cout<<  "Restarting query...";
+            std::cout << "There has been an error! Inbound train file missing or not open! Please report to admin!\n";
+            std::cout<<  "Restarting query...\n\n";
             TakeAnAction_MainMenu restart;
             restart.PrintOptions();
         }else{
@@ -119,21 +126,13 @@ public:
             WantReturn();
         }
     }
-    void WantReturn(){
+    void TakeAnAction_View::WantReturn(){
         std::cout<<"Enter anything to return to menu!";
         std::cin>>p;
         TakeAnAction_MainMenu goBack;
         goBack.PrintOptions();
     }
 
-
-    explicit TakeAnAction_View() : x(0){
-        std::cout << "List of InBound Trains today:" << "\n\n";
-        std::cout << "ID--------------Company--------------Will Arrive At--------------Delay--------------From\n";
-    }
-
-    ~TakeAnAction_View() = default;
-};
 
 
 
