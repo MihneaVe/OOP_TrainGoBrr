@@ -1,6 +1,4 @@
 #include <iostream>
-#include <array>
-
 
 ///____----____----____----____----____----____----HereGoNotes----____----____----____----____----____----____\\\
 
@@ -23,7 +21,6 @@
 
 ///____----____----____----____----____----____----HereGoCode----____----____----____----____----____----____\\\
 
-using namespace std;
 
 class TakeAnAction_MainMenu {
 private:
@@ -31,52 +28,52 @@ private:
     const int pass = 989125; // Variable to contain the admin password
 public:
     void PrintOptions() { // Method to list possible choices at the start of the app
-        cout << "What do you wish to do? (insert number and press enter to select)"<<"\n";
-        cout << "1.View inbound trains"<<"\n";
-        cout << "2.View outbound trains"<<"\n";
-        cout << "3.Check for issues on routes"<<"\n";
-        cout << "4.Buy tickets"<<"\n";
-        cout << "0.Quit"<<"\n";
-        cout << "Administrator Menu (insert password)"<<"\n\n";
+        std::cout << "What do you wish to do? (insert number and press enter to select)"<<"\n";
+        std::cout << "1.View inbound trains"<<"\n";
+        std::cout << "2.View outbound trains"<<"\n";
+        std::cout << "3.Check for issues on routes"<<"\n";
+        std::cout << "4.Buy tickets"<<"\n";
+        std::cout << "0.Quit"<<"\n";
+        std::cout << "Administrator Menu (insert password)"<<"\n\n";
         TakeChoice();
     }
 
     void TakeChoice() { // Method to retain the selected choice (i.e. the menu selected)
-        cin>>x;
+        std::cin>>x;
         RedirectTo();
     }
 
     void RedirectTo() { // Method to redirect to the selected menu or quit the app
         if((0<=x && 4>=x)||(x==pass)) {
-            cout << "You have chosen to ";
+            std::cout << "You have chosen to ";
             if (x == 1) {
-                cout<<"view inbound trains.";
+                std::cout<<"view inbound trains.";
             } else if (x == 2) {
-                cout<<"view outbound trains.";
+                std::cout<<"view outbound trains.";
             } else if (x == 3) {
-                cout<<"check for issues on routes.";
+                std::cout<<"check for issues on routes.";
             } else if (x == 4) {
-                cout<<"buy tickets.";
+                std::cout<<"buy tickets.";
             } else if (x == pass) {
-                cout<<"log in as admin.";
+                std::cout<<"log in as admin.";
             }else{
-                cout<<"close the app."<<"\n";
-                cout<<"App is closing...Goodbye!";
+                std::cout<<"close the app."<<"\n";
+                std::cout<<"App is closing...Goodbye!";
             }
         }else{
-            cout<<"Wrong input! Try again!"<<"\n\n";
+            std::cout<<"Wrong input! Try again!"<<"\n\n";
             PrintOptions();
         }
     }
 
     // Default constructor
     explicit TakeAnAction_MainMenu() : x(0) {
-        cout << "Hello and welcome to <<OURAPP TODO>>!" << "\n\n";
+        std::cout << "Hello and welcome to <<OURAPP TODO>>!" << "\n\n";
     }
 
     // Overloaded constructor with one parameter
     explicit TakeAnAction_MainMenu(int i) : x(i) {
-        cout << "Hello and welcome to <<OURAPP TODO>>!" << "\n\n";
+        std::cout << "Hello and welcome to <<OURAPP TODO>>!" << "\n\n";
     }
 
     // Destructor
@@ -87,6 +84,5 @@ public:
 int main() {
     TakeAnAction_MainMenu play;
     play.PrintOptions();
-    cout<<"";
     return 0;
 }
