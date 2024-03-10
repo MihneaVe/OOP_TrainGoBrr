@@ -34,18 +34,33 @@
 
 ///____----____----____----____----____----____----HereGoCode----____----____----____----____----____----____|||
 
+
+///This functions just compares two strings regardles of case sensitivity
+bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
+    if (str1.length() != str2.length()) {
+        return false; // If lengths are different, strings are not equal
+    }
+
+    for (size_t i = 0; i < str1.length(); ++i) {
+        if (std::tolower(str1[i]) != std::tolower(str2[i])) {
+            return false; // If characters at corresponding positions are different, strings are not equal
+        }
+    }
+
+    return true; // Strings are equal
+}
+
 ///Inbound/Outbound Class (Read Type)
 class TakeAnAction_View {
 private:
     int x;
-    std::string p;
+    char p;
 public:
     void ListTrainsIN();
+    void ListTrainsOUT();
+    void ListIssues();
     void WantReturn();
-    explicit TakeAnAction_View() : x(0){
-        std::cout << "List of InBound Trains today:" << "\n\n";
-        std::cout << "ID--------------Company--------------Will Arrive At--------------Delay--------------From\n";
-    }
+    TakeAnAction_View();
     ~TakeAnAction_View() = default;
 };
 
@@ -78,19 +93,21 @@ public:
         if((0<=x && 4>=x)||(x==pass)) {
             std::cout << "You have chosen to ";
             if (x == 1) {
-                std::cout<<"view inbound trains.";
+                std::cout<<"view inbound trains.\n";
                 view->ListTrainsIN();
             } else if (x == 2) {
-                std::cout<<"view outbound trains.";
+                std::cout<<"view outbound trains.\n";
+                view->ListTrainsOUT();
             } else if (x == 3) {
-                std::cout<<"check for issues on routes.";
+                std::cout<<"check or report issues.\n";
+                view->ListIssues();
             } else if (x == 4) {
-                std::cout<<"buy tickets.";
+                std::cout<<"buy tickets.\n";
             } else if (x == pass) {
-                std::cout<<"log in as admin.";
+                std::cout<<"log in as admin.\n";
             }else{
                 std::cout<<"close the app."<<"\n";
-                std::cout<<"App is closing...Goodbye!";
+                std::cout<<"App is closing...Goodbye!\n";
             }
         }else{
             std::cout<<"Wrong input! Try again!"<<"\n\n";
@@ -99,12 +116,12 @@ public:
     }
 
     // Default constructor
-    explicit TakeAnAction_MainMenu() : x(0), view(nullptr) {
+    explicit TakeAnAction_MainMenu() : x(0) {
         std::cout << "Hello and welcome to <<OURAPP TODO>>!" << "\n\n";
     }
 
     // Overloaded constructor with one parameter
-    explicit TakeAnAction_MainMenu(int i) : x(i), view(nullptr) {
+    explicit TakeAnAction_MainMenu(int i) : x(i) {
         std::cout << "Hello and welcome to <<OURAPP TODO>>!" << "\n\n";
     }
 
@@ -112,8 +129,8 @@ public:
     ~TakeAnAction_MainMenu() = default;
 };
 
-///Inbound/Outbound Trains Class (Read Type)
-     void TakeAnAction_View::ListTrainsIN(){
+//Inbound/Outbound Trains Class (Read Type)
+    void TakeAnAction_View::ListTrainsIN(){
         std::ifstream fin("Inbound.txt");
         if (!fin.is_open()){
             std::cout << "There has been an error! Inbound train file missing or not open! Please report to admin!\n";
@@ -121,23 +138,88 @@ public:
             TakeAnAction_MainMenu restart;
             restart.PrintOptions();
         }else{
+            std::cout << "\nList of InBound Trains today:" << "\n\n";
+            std::cout << "ID | Company | Arrival | Delay | From\n";
             std::string line;
             while (std::getline(fin, line)) {
                 std::cout << line << "\n";
             }
             fin.close();
+            std::cout<<"\n\n";
             WantReturn();
         }
     }
+    void TakeAnAction_View::ListTrainsOUT() {
+        std::ifstream fin("Outbound.txt");
+        if (!fin.is_open()){
+            std::cout << "There has been an error! Outbound train file missing or not open! Please report to admin!\n";
+            std::cout<<  "Restarting query...\n\n";
+            TakeAnAction_MainMenu restart;
+            restart.PrintOptions();
+        }else{
+            std::cout << "\nList of OutBound Trains today:" << "\n\n";
+            std::cout << "ID | Company | Arrival | Delay | To\n";
+            std::string line;
+            while (std::getline(fin, line)) {
+                std::cout << line << "\n";
+            }
+            fin.close();
+            std::cout<<"\n\n";
+            WantReturn();
+        }
+    }
+    void TakeAnAction_View::ListIssues() {
+        std:: ifstream fin("IssueRap.txt");
+        if (!fin.is_open()) {
+            std::cout << "There has been an error! Outbound train file missing or not open! Please report to admin!\n";
+            std::cout << "Restarting query...\n\n";
+            TakeAnAction_MainMenu restart;
+            restart.PrintOptions();
+        }else{
+            std::cout<<"This is a list of the possible issues that may occur on your routes and in the station!\n";
+            std::cout<<"Please report any more issues by entering \"issue\" in the console!\nIf you wish to return, enter anything else!\n";
+            std::string line;
+            while (std::getline(fin, line)) {
+                std::cout << line << "\n";
+            };
+            fin.close();
+            std::cout<<"\n\n";
+            std::cin>>line;
+            if (isEqualIgnoreCase(line, "issue")) {
+                int wr = false;
+                std::cout<<"What is the problem?\n";
+                std::ofstream fout("IssueRap.txt", std::ios::app);
+                std::cin>>line;
+                fout<< "\n" << line;
+                do{
+                    if(wr)
+                        fout << line << ' ';
+                    else
+                        wr=true;
+                    if(line.empty()){
+                        break;
+                    }
+                }while(std::getline(std::cin, line));
+                fout.close();
+                std::cout << "Issue added successfully.\n";
+            }else{
+                TakeAnAction_MainMenu restart;
+                restart.PrintOptions();
+            }
+        }
+    }
     void TakeAnAction_View::WantReturn(){
-        std::cout<<"Enter anything to return to menu!";
-        std::cin>>p;
-        TakeAnAction_MainMenu goBack;
-        goBack.PrintOptions();
+         std::cout<<"Press any key and enter to return to the menu!";
+         std::string l;
+         std::cin>>l;
+         std::cout<<"\n\n";
+         TakeAnAction_MainMenu restart;
+         restart.PrintOptions();
     }
 
-
-
+TakeAnAction_View::TakeAnAction_View() {
+    std::cout<<"Redirecting...";
+}
 
 
 int main() {
