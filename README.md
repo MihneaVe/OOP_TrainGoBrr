@@ -25,7 +25,7 @@ Nerespectarea duce la nepunctarea proiectului
     - [ ] `operator=` de copiere
     - [0] destructor
     - [ ] `operator<<` pentru afișare (std::ostream)
-    - [ ] `operator>>` pentru citire (std::istream)
+    - [0] `operator>>` pentru citire (std::istream)
     - [ ] alt operator supraîncărcat ca funcție membră
     - [ ] alt operator supraîncărcat ca funcție non-membră
   - pentru celelalte clase se va definii doar ce e nevoie
