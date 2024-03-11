@@ -19,11 +19,11 @@ Nerespectarea duce la nepunctarea proiectului
 #### Cerințe
 - [ ] definirea a minim **2-3 clase** care sa interactioneze in cadrul temei alese (fie prin compunere, agregare sau doar sa apeleze metodele celeilalte intr-un mod logic) (5p)
   - pentru o clasă:
-    - [ ] constructori de inițializare
-    - [ ] constructor supraîncărcat
+    - [0] constructori de inițializare
+    - [0] constructor supraîncărcat
     - [ ] constructori de copiere
     - [ ] `operator=` de copiere
-    - [ ] destructor
+    - [0] destructor
     - [ ] `operator<<` pentru afișare (std::ostream)
     - [ ] `operator>>` pentru citire (std::istream)
     - [ ] alt operator supraîncărcat ca funcție membră
