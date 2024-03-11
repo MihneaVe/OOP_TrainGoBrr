@@ -53,8 +53,8 @@ bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
 ///Inbound/Outbound Class (Read Type)
 class TakeAnAction_View {
 private:
-    int x;
-    char p;
+    //int x;
+    //char p;
 public:
     void ListTrainsIN();
     void ListTrainsOUT();
