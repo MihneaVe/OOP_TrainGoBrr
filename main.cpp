@@ -69,7 +69,7 @@ public:
 ///Main Menu Class (Read Type)
 class TakeAnAction_MainMenu {
 private:
-    int x, l; // Int type variables for multiple purposes
+    int x; // Int type variables for multiple purposes
     const int pass = 989125; // Variable to contain the admin password
     TakeAnAction_View* view{}; //Pointer to previously declared class
 public:
@@ -138,7 +138,7 @@ public:
         input >> tempX;
 
         // Create a new object using the appropriate constructor
-        while (tempX != menu.pass) {
+        while (true) {
             if(tempX == menu.pass){
                 // Assign temporary values to the object
                 menu.x = tempX;
