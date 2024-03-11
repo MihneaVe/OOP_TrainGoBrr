@@ -131,8 +131,9 @@ public:
     }
 
     // Default constructor
-    explicit TakeAnAction_MainMenu() : x(0) {
+    explicit TakeAnAction_MainMenu() : x(0){
         std::cout << "Hello and welcome to <<OURAPP TODO>>!" << "\n\n";
+        mutablePass = pass;
     }
 
     // Destructor
