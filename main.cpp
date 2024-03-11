@@ -70,6 +70,7 @@ public:
 class TakeAnAction_MainMenu {
 private:
     int x; // Int type variables for multiple purposes
+    mutable int mutablePass;
     const int pass = 989125; // Variable to contain the admin password
     TakeAnAction_View* view{}; //Pointer to previously declared class
 public:
@@ -118,8 +119,12 @@ public:
 
     void AdminMenu(){
         if(x!=-2) {
-            std::cout << "Placeholder\n\n"; ///TO DO ADD FUNCTIONALITY HERE AND DONT FORGET IT GOES TO NORMAL MODE BY ITSELF AFTER FUNCTION
+            std::cout << "Press 1 to change the password\n\n"; ///TO DO ADD FUNCTIONALITY HERE AND DONT FORGET IT GOES TO NORMAL MODE BY ITSELF AFTER FUNCTION
             std::cin >> x;
+            if(x==1) {
+                std::cin >> x;
+                operator=(x);
+            }
         }else{
             //This is quite hardcoded but oh well...
         }
@@ -132,6 +137,25 @@ public:
 
     // Destructor
     ~TakeAnAction_MainMenu() = default;
+
+
+    //Operator = overloarder;
+    int operator=(int k) {
+        std::cout<<"Note that next admin session will NOT be affected\n";
+        std::cout<<"Do you still wish to do this?(y/n)\n";
+        std::string p;
+        std::cin>>p;
+        while(p!="n") {
+            if (p == "y")
+                mutablePass = k;
+            else if (p!="n"){
+                std::cout<<"Wrong input! Only (y/n) accepted!\n";
+            }
+        }
+        return k;
+    }
+
+    //Operator>> overloader;
     friend std::istream& operator>>(std::istream& input, TakeAnAction_MainMenu& menu) {
         int tempX;
         // Read data into temporary variables
@@ -231,6 +255,7 @@ public:
                 }while(std::getline(std::cin, line));
                 fout.close();
                 std::cout << "Issue added successfully.\n";
+                ListIssues();
             }else{
                 TakeAnAction_MainMenu restart;
                 restart.PrintOptions();
@@ -259,7 +284,7 @@ int main() {
             TakeAnAction_MainMenu play;
             if (x==0){
                 std::cout<<"Enter the admin password\n";
-                std::cin>>play;
+                operator>>(std::cin, play); ///OVERLOADED OPERATOR>>
                 TakeAnAction_MainMenu again(play);
                 again.AdminMenu();
             }
