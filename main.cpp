@@ -145,11 +145,14 @@ public:
         std::cout<<"Do you still wish to do this?(y/n)\n";
         std::string p;
         std::cin>>p;
-        while(p!="n") {
+        while(true) {
             if (p == "y")
                 mutablePass = k;
             else if (p!="n"){
                 std::cout<<"Wrong input! Only (y/n) accepted!\n";
+                std::cin>>p;
+            }else{
+                break;
             }
         }
         return k;
