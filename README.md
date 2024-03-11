@@ -22,7 +22,7 @@ Nerespectarea duce la nepunctarea proiectului
     - [0] constructori de inițializare
     - [0] constructor supraîncărcat
     - [ ] constructori de copiere
-    - [ ] `operator=` de copiere
+    - [0] `operator=` de copiere
     - [0] destructor
     - [ ] `operator<<` pentru afișare (std::ostream)
     - [0] `operator>>` pentru citire (std::istream)
