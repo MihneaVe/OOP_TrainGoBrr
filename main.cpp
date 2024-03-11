@@ -69,7 +69,7 @@ public:
 ///Main Menu Class (Read Type)
 class TakeAnAction_MainMenu {
 private:
-    int x; // Variable to store input
+    int x, l; // Int type variables for multiple purposes
     const int pass = 989125; // Variable to contain the admin password
     TakeAnAction_View* view{}; //Pointer to previously declared class
 public:
@@ -80,7 +80,6 @@ public:
         std::cout << "3.Check for issues on routes"<<"\n";
         std::cout << "4.Buy tickets"<<"\n";
         std::cout << "0.Quit"<<"\n";
-        std::cout << "Administrator Menu (insert password)"<<"\n\n";
         TakeChoice();
     }
 
@@ -93,25 +92,36 @@ public:
         if((0<=x && 4>=x)||(x==pass)) {
             std::cout << "You have chosen to ";
             if (x == 1) {
-                std::cout<<"view inbound trains.\n";
+                std::cout << "view inbound trains.\n";
                 view->ListTrainsIN();
             } else if (x == 2) {
-                std::cout<<"view outbound trains.\n";
+                std::cout << "view outbound trains.\n";
                 view->ListTrainsOUT();
             } else if (x == 3) {
-                std::cout<<"check or report issues.\n";
+                std::cout << "check or report issues.\n";
                 view->ListIssues();
             } else if (x == 4) {
-                std::cout<<"buy tickets.\n";
+                std::cout << "buy tickets.\n";
             } else if (x == pass) {
-                std::cout<<"log in as admin.\n";
-            }else{
-                std::cout<<"close the app."<<"\n";
-                std::cout<<"App is closing...Goodbye!\n";
+                std::cout << "log in as admin.\n";
+            } else {
+                std::cout << "close the app." << "\n";
+                std::cout << "App is closing...Goodbye!\n";
             }
+        }else if(x==-1){
+            std::cout<<"Redirecting to normal mode...\n\n";
         }else{
-            std::cout<<"Wrong input! Try again!"<<"\n\n";
+            std::cout<<"Wrong input! Try again!\n\n";
             PrintOptions();
+        }
+    }
+
+    void AdminMenu(){
+        if(x!=-2) {
+            std::cout << "Placeholder\n\n"; ///TO DO ADD FUNCTIONALITY HERE AND DONT FORGET IT GOES TO NORMAL MODE BY ITSELF AFTER FUNCTION
+            std::cin >> x;
+        }else{
+            //This is quite hardcoded but oh well...
         }
     }
 
@@ -120,13 +130,32 @@ public:
         std::cout << "Hello and welcome to <<OURAPP TODO>>!" << "\n\n";
     }
 
-    // Overloaded constructor with one parameter
-    explicit TakeAnAction_MainMenu(int i) : x(i) {
-        std::cout << "Hello and welcome to <<OURAPP TODO>>!" << "\n\n";
-    }
-
     // Destructor
     ~TakeAnAction_MainMenu() = default;
+    friend std::istream& operator>>(std::istream& input, TakeAnAction_MainMenu& menu) {
+        int tempX;
+        // Read data into temporary variables
+        input >> tempX;
+
+        // Create a new object using the appropriate constructor
+        while (tempX != menu.pass) {
+            if(tempX == menu.pass){
+                // Assign temporary values to the object
+                menu.x = tempX;
+                break;
+            }else{
+                std::cout<<"Incorrect password. Try again or press 0 to enter normal mode\n";
+                input >> tempX;
+            }
+            if(tempX==0){
+                // Assign temporary values to the object
+                menu.x = -2;
+                break;
+            }
+        }
+
+        return input;
+    }
 };
 
 //Inbound/Outbound Trains Class (Read Type)
@@ -223,7 +252,20 @@ TakeAnAction_View::TakeAnAction_View() {
 
 
 int main() {
-    TakeAnAction_MainMenu play;
-    play.PrintOptions();
-    return 0;
+        int x;
+        std::cout<<"Enter 0 for admin mode, 1 for normal mode.";
+        std::cin>>x;
+        if(x==1 || x==0) {
+            TakeAnAction_MainMenu play;
+            if (x==0){
+                std::cout<<"Enter the admin password\n";
+                std::cin>>play;
+                TakeAnAction_MainMenu again(play);
+                again.AdminMenu();
+            }
+            play.PrintOptions();
+        }else{
+            std::cout<<"Invalid input! Shutting down...";
+        }
+        return 0;
 }
