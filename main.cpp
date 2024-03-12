@@ -378,7 +378,7 @@ public:
         return output;
     }
 
-    friend bool operator==(int k, multipass& allpass){
+    friend bool operator==(int k, const multipass& allpass){
         int i=0;
         bool retval;
         while(i!=10){
@@ -513,7 +513,7 @@ TakeAnAction_View::TakeAnAction_View() {
 int main() {
         int x;
         while(true) {
-            std::cout<<"Press 0 to open app.\nPress 1 to end process.\n";
+            std::cout<<"Press 0 to open app.\nPress any other number to end process.\n";
             std::cin>>x;
             if(x==0){
                 std::cout<<"Enter 0 for admin mode, 1 for normal mode.";
@@ -530,11 +530,9 @@ int main() {
                 } else {
                     std::cout << "Invalid input! Restarting...";
                 }
-            }else if(x==1){
-                std::cout<<"Shutting down...";
-                break;
             }else{
-                std::cout << "Invalid input! Restarting...";
+                std::cout << "Shutting down...";
+                break;
             }
         }
         return 0;
