@@ -34,7 +34,7 @@ Nerespectarea duce la nepunctarea proiectului
 - [ ] scenariu de utilizare a claselor definite (1p):
   - crearea de obiecte și apelarea tuturor funcțiilor membru publice în main
   - vor fi adăugate în fișierul `tastatura.txt` DOAR exemple de date de intrare de la tastatură (dacă există); dacă aveți nevoie de date din fișiere, creați alte fișiere separat
-- [ ] opțiune pentru citirea și afișarea a n obiecte (1p)
+- [o] opțiune pentru citirea și afișarea a n obiecte (1p)
 
 ## Recomandare Tema
 
