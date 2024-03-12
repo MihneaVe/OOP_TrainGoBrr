@@ -370,7 +370,7 @@ public:
 
     //Operator<< overloader;
     friend std::ostream& operator<<(std::ostream& output, multipass& allpass){
-        int i;
+        int i = 0;
         while (allpass.Setpass[i] != -123 && i<10){
             std::cout<<i+1<<":"<<allpass.Setpass[i]<<"\n";
             i++;
