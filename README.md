@@ -27,9 +27,9 @@ Nerespectarea duce la nepunctarea proiectului
     - [o] `operator<<` pentru afișare (std::ostream)
     - [o] `operator>>` pentru citire (std::istream)
     - [o] alt operator supraîncărcat ca funcție membră
-    - [ ] alt operator supraîncărcat ca funcție non-membră
+    - [0] alt operator supraîncărcat ca funcție non-membră
   - pentru celelalte clase se va definii doar ce e nevoie
-- [ ] implementarea a minim 3 funcții membru publice pentru funcționalități specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe (3p)
+- [0] implementarea a minim 3 funcții membru publice pentru funcționalități specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe (3p)
 - nu doar citiri/afișări sau adăugat/șters elemente într-un/dintr-un vector 
 - [ ] scenariu de utilizare a claselor definite (1p):
   - crearea de obiecte și apelarea tuturor funcțiilor membru publice în main
