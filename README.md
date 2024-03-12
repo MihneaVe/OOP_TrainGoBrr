@@ -21,7 +21,7 @@ Nerespectarea duce la nepunctarea proiectului
   - pentru o clasă:
     - [o] constructori de inițializare
     - [o] constructor supraîncărcat
-    - [ ] constructori de copiere
+    - [1] constructori de copiere
     - [o] `operator=` de copiere
     - [o] destructor
     - [o] `operator<<` pentru afișare (std::ostream)
