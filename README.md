@@ -17,15 +17,15 @@ Nerespectarea duce la nepunctarea proiectului
 ## Tema 1
 
 #### Cerințe
-- [ ] definirea a minim **2-3 clase** care sa interactioneze in cadrul temei alese (fie prin compunere, agregare sau doar sa apeleze metodele celeilalte intr-un mod logic) (5p)
+- [o] definirea a minim **2-3 clase** care sa interactioneze in cadrul temei alese (fie prin compunere, agregare sau doar sa apeleze metodele celeilalte intr-un mod logic) (5p)
   - pentru o clasă:
-    - [0] constructori de inițializare
-    - [0] constructor supraîncărcat
+    - [o] constructori de inițializare
+    - [o] constructor supraîncărcat
     - [ ] constructori de copiere
-    - [0] `operator=` de copiere
-    - [0] destructor
-    - [ ] `operator<<` pentru afișare (std::ostream)
-    - [0] `operator>>` pentru citire (std::istream)
+    - [o] `operator=` de copiere
+    - [o] destructor
+    - [o] `operator<<` pentru afișare (std::ostream)
+    - [o] `operator>>` pentru citire (std::istream)
     - [ ] alt operator supraîncărcat ca funcție membră
     - [ ] alt operator supraîncărcat ca funcție non-membră
   - pentru celelalte clase se va definii doar ce e nevoie
