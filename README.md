@@ -26,7 +26,7 @@ Nerespectarea duce la nepunctarea proiectului
     - [o] destructor
     - [o] `operator<<` pentru afișare (std::ostream)
     - [o] `operator>>` pentru citire (std::istream)
-    - [ ] alt operator supraîncărcat ca funcție membră
+    - [o] alt operator supraîncărcat ca funcție membră
     - [ ] alt operator supraîncărcat ca funcție non-membră
   - pentru celelalte clase se va definii doar ce e nevoie
 - [ ] implementarea a minim 3 funcții membru publice pentru funcționalități specifice temei alese, dintre care cel puțin 1-2 funcții mai complexe (3p)
