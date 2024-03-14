@@ -69,7 +69,7 @@ public:
         fout<<name<< " "<<surname<<" has just bought "<<val<<" tickets.\n\n";
     }
 
-    CreateTickets(): val(0){};
+    CreateTickets(): val(1){};
 
     explicit CreateTickets(int newval): val(newval){
         std::cout<<"You have bought "<<val<<" tickets!";
@@ -121,7 +121,6 @@ private:
             return *this;
         }
     }Multipass; //set up to ten new passwords.
-protected:
     struct tickets {
         int brasov = 323;
         int pBv = 40;
@@ -142,7 +141,6 @@ protected:
             return *this;
         }
     }Tickets;
-
 public:
     void PrintOptions() { // Method to list possible choices at the start of the app
         std::cout << "What do you wish to do? (insert number and press enter to select)"<<"\n";
@@ -180,7 +178,6 @@ public:
                 std::cin >>x;
                 if(x==1){
                     std::cout<<"\nHow many?\n";
-                    std::cin >> x;
                     CreateTickets buy(x);
                     Tickets.constanta+=x;
                     buy.info();
@@ -500,6 +497,7 @@ float operator*(TakeAnAction_MainMenu::tickets& lister, float k){
          std::cout<<"Press any key and enter to return to the menu!";
          std::string l;
          std::cin>>l;
+
          std::cout<<"\n\n";
          TakeAnAction_MainMenu restart;
          restart.PrintOptions();
@@ -522,7 +520,7 @@ int main() {
                     TakeAnAction_MainMenu play;
                     if (x == 0) {
                         std::cout << "Enter the admin password\n";
-                        operator>>(std::cin, play); ///OVERLOADED OPERATOR>>
+                        operator>>(std::cin, play);
                         TakeAnAction_MainMenu again(play);
                         again.AdminMenu();
                     }
