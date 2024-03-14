@@ -2,10 +2,10 @@
 
 ## Sistem de gestiune a aproape tuturor cerintelor unei gari:
 (i.e Gara de nord din Bucuresti)
--afisare tranuri in/out bound
--afisare rute disponibile + bilete vandute automat
--optiune pentru raportarea si solutionarea problemelor
--optiuni de gestionare a informatiilor (doar de catre admini, in meniu dedicat!)
+- afisare tranuri in/out bound
+- afisare rute disponibile + bilete vandute automat
+- optiune pentru raportarea si solutionarea problemelor
+- optiuni de gestionare a informatiilor (doar de catre admini, in meniu dedicat!)
 
 ## Cerințe obligatorii 
 
