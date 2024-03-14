@@ -368,8 +368,9 @@ public:
     //Operator<< overloader;
     friend std::ostream& operator<<(std::ostream& output, const multipass& allpass){
         int i = 0;
-        while (i<10 && allpass.Setpass[i] != -123){
-            std::cout<<i+1<<":"<<allpass.Setpass[i]<<"\n";
+        while (i<10){
+            if(allpass.Setpass[i] != -123)
+                std::cout<<i+1<<":"<<allpass.Setpass[i]<<"\n";
             i++;
         }
         return output;
