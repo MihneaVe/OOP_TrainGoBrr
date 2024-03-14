@@ -1,6 +1,6 @@
 # Nordlink
 
-##Sistem de gestiune a aproape tuturor cerintelor unei gari:
+## Sistem de gestiune a aproape tuturor cerintelor unei gari:
 (i.e Gara de nord din Bucuresti)
 -afisare tranuri in/out bound
 -afisare rute disponibile + bilete vandute automat
