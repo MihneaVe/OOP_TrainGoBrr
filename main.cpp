@@ -38,6 +38,7 @@ bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
 
     return true; // Strings are equal
 }
+
 ///Inbound/Outbound Class
 class TakeAnAction_View {
 private:
