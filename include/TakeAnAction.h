@@ -6,6 +6,7 @@
 #include <fstream>
 #include <string>
 #include "CreateTickets.h"
+#include "SeeRoutesIn.h"
 
 bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
     if (str1.length() != str2.length()) {
@@ -117,7 +118,8 @@ public:
             std::cout << "You have chosen to ";
             if (x == 1) {
                 std::cout << "view inbound trains.\n";
-                view->ListTrainsIN();
+                SeeRoutesIn in;
+                in.goSomewhere(0);
             } else if (x == 2) {
                 std::cout << "view outbound trains.\n";
                 view->ListTrainsOUT();
