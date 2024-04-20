@@ -1,13 +1,12 @@
 
-#ifndef OOP_SEEROUTESIN_H
-#define OOP_SEEROUTESIN_H
+#ifndef OOP_SEEROUTESMAIN_H
+#define OOP_SEEROUTESMAIN_H
 
 #include <iostream>
 #include <cstring>
-#include "InRoutesAdmin.h"
 
-class SeeRoutesIn{
-private:
+class SeeRoutesMain{
+protected:
     std::string toptext = "---T_ID------CPNY------HOUR------CITY---";
     int list_id[150]{};
     std::string company[150][4];
@@ -16,8 +15,8 @@ private:
     std::string city[150][16];
     int remTickets[150][2]{};
 public:
-    SeeRoutesIn()= default;
-    SeeRoutesIn(const int id[150], std::string comp[150][4], std::string hour[150][3], std::string min[150][3], std::string cit[150][16], const int remTick[150][2]){
+    SeeRoutesMain()= default;
+    SeeRoutesMain(const int id[150], std::string comp[150][4], std::string hour[150][3], std::string min[150][3], std::string cit[150][16], const int remTick[150][2]){
         std::memcpy(list_id, id, sizeof(list_id));
         for(int i=0; i<150; i++){
             for(int j=0; j<4; j++)
@@ -40,7 +39,7 @@ public:
                 remTickets[i][j]=remTick[i][j];
         }
     }
-    void goSomewhere(int x){
+    void virtual goSomewhere(int x){
         if (x==0){
             std::cout<<"What do you want to do?(1 for seeing routes, 2 for reserving a seat or more)";
             std::cin>>x;
@@ -53,27 +52,23 @@ public:
             reserveTickets(temp, nr);
         }
     }
-    void printRoutes(){
+    void virtual printRoutes(){
         std::cout<<toptext<<'\n';
         for(int i=0; i<150; i++){
             std::cout<<list_id[i]<<"  "<<company[i]<<"  "<<list_hour[i]<<':'<<list_minute[i]<<"  "<<city[i]<<"\n\n";
         }
-        SeeRoutesIn redo(list_id,company,list_hour,list_minute,city,remTickets);
-        redo.goSomewhere(0);
     }
-    void reserveTickets(int route, int nr){
+    void virtual reserveTickets(int route, int nr){
         if(remTickets[route][1]<=nr){
             std::cout<<"You have reserved the tickets on the selected train. Please note you will have to pay on the train.\n";
             remTickets[route][1] -= nr;
         }else{
             std::cout<<"Please select a smaller number!";
         }
-        SeeRoutesIn redo(list_id,company,list_hour,list_minute,city,remTickets);
-        redo.goSomewhere(0);
     }
-    void ModifySmth(){
+    void virtual ModifyRoute(){
 
     }
 };
 
-#endif //OOP_SEEROUTESIN_H
+#endif //OOP_SEEROUTESMAIN_H

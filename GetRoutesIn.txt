@@ -1,0 +1,150 @@
+1023 TFC 07:30 Sibiu
+2156 CFR 07:45 Cluj-Napoca
+3078 RRB 08:00 Timisoara
+4123 TFC 08:15 Constanta
+5236 CFR 08:30 Brasov
+6345 TFC 08:45 Galati
+7432 RRB 09:00 Arad
+8543 CFR 09:15 Craiova
+9612 TFC 09:30 Oradea
+1078 RRB 09:45 Iasi
+1154 CFR 10:00 Ploiesti
+1209 TFC 10:15 Bacau
+1302 RRB 10:30 Deva
+1423 CFR 10:45 Suceava
+1506 TFC 11:00 Buzau
+1612 RRB 11:15 Satu Mare
+1723 CFR 11:30 Targu-Mures
+1814 TFC 11:45 Drobeta-Turnu Severin
+1908 RRB 12:00 Braila
+2011 CFR 12:15 Resita
+2123 TFC 12:30 Fagaras
+2209 RRB 12:45 Pitesti
+2341 CFR 13:00 Bistrita
+2432 TFC 13:15 Alba Iulia
+2536 RRB 13:30 Barlad
+2627 CFR 13:45 Vaslui
+2709 TFC 14:00 Giurgiu
+2843 RRB 14:15 Targoviste
+2910 CFR 14:30 Roman
+3005 TFC 14:45 Botosani
+3123 RRB 15:00 Focsani
+3248 CFR 15:15 Zalau
+3323 TFC 15:30 Slobozia
+3456 RRB 15:45 Turda
+3523 CFR 16:00 Targu Jiu
+3610 TFC 16:15 Husi
+3721 RRB 16:30 Odorheiu Secuiesc
+3812 CFR 16:45 Ramnicu Valcea
+3923 TFC 17:00 Targu Neamt
+4024 RRB 17:15 Dragasani
+4110 CFR 17:30 Mizil
+4243 TFC 17:45 Lugoj
+4323 RRB 18:00 Zimnicea
+4412 CFR 18:15 Bistrita
+4536 TFC 18:30 Arad
+4627 RRB 18:45 Cluj-Napoca
+4710 CFR 19:00 Timisoara
+4843 TFC 19:15 Constanta
+4923 RRB 19:30 Brasov
+5032 CFR 19:45 Galati
+5123 TFC 20:00 Sibiu
+5234 RRB 20:15 Iasi
+5341 CFR 20:30 Ploiesti
+5423 TFC 20:45 Bacau
+5546 RRB 21:00 Deva
+5623 CFR 21:15 Suceava
+5732 TFC 21:30 Buzau
+5843 RRB 21:45 Satu Mare
+5910 CFR 22:00 Targu-Mures
+6023 TFC 22:15 Drobeta-Turnu Severin
+6132 RRB 22:30 Braila
+6223 CFR 22:45 Resita
+6345 TFC 23:00 Fagaras
+6421 RRB 23:15 Pitesti
+6532 CFR 23:30 Bistrita
+6610 TFC 23:45 Alba Iulia
+6723 RRB 00:00 Barlad
+6843 CFR 00:15 Vaslui
+6912 TFC 00:30 Giurgiu
+7023 RRB 00:45 Targoviste
+7132 CFR 01:00 Roman
+7243 TFC 01:15 Botosani
+7323 RRB 01:30 Focsani
+7443 CFR 01:45 Zalau
+7510 TFC 02:00 Slobozia
+7623 RRB 02:15 Turda
+7745 CFR 02:30 Targu Jiu
+7832 TFC 02:45 Husi
+7943 RRB 03:00 Odorheiu Secuiesc
+8010 CFR 03:15 Ramnicu Valcea
+8123 TFC 03:30 Targu Neamt
+8232 RRB 03:45 Dragasani
+8345 CFR 04:00 Mizil
+8423 TFC 04:15 Lugoj
+8546 RRB 04:30 Zimnicea
+8632 CFR 04:45 Bistrita
+8743 TFC 05:00 Arad
+8810 RRB 05:15 Cluj-Napoca
+8923 CFR 05:30 Timisoara
+9032 TFC 05:45 Constanta
+9123 RRB 06:00 Brasov
+9243 CFR 06:15 Galati
+9310 TFC 06:30 Sibiu
+9423 RRB 06:45 Iasi
+9546 CFR 07:00 Ploiesti
+9623 TFC 07:15 Bacau
+9732 RRB 07:30 Deva
+9845 CFR 07:45 Suceava
+9912 TFC 08:00 Buzau
+0023 RRB 08:15 Satu Mare
+0132 CFR 08:30 Targu-Mures
+0243 TFC 08:45 Drobeta-Turnu Severin
+0323 RRB 09:00 Braila
+0445 CFR 09:15 Resita
+0510 TFC 09:30 Fagaras
+0623 RRB 09:45 Pitesti
+0743 CFR 10:00 Bistrita
+0810 TFC 10:15 Alba Iulia
+0923 RRB 10:30 Barlad
+1046 CFR 10:45 Vaslui
+1123 TFC 11:00 Giurgiu
+1243 RRB 11:15 Targoviste
+1310 CFR 11:30 Roman
+1423 TFC 11:45 Botosani
+1521 RRB 12:00 Focsani
+1643 CFR 12:15 Zalau
+1710 TFC 12:30 Slobozia
+1823 RRB 12:45 Turda
+1945 CFR 13:00 Targu Jiu
+2010 TFC 13:15 Husi
+2123 RRB 13:30 Odorheiu Secuiesc
+2243 CFR 13:45 Ramnicu Valcea
+2310 TFC 14:00 Targu Neamt
+2423 RRB 14:15 Dragasani
+2546 CFR 14:30 Mizil
+2623 TFC 14:45 Lugoj
+2732 RRB 15:00 Zimnicea
+2845 CFR 15:15 Bistrita
+2910 TFC 15:30 Arad
+3023 RRB 15:45 Cluj-Napoca
+3143 CFR 16:00 Timisoara
+3210 TFC 16:15 Constanta
+3323 RRB 16:30 Brasov
+3445 CFR 16:45 Galati
+3510 TFC 17:00 Sibiu
+3623 RRB 17:15 Iasi
+3746 CFR 17:30 Ploiesti
+3812 TFC 17:45 Bacau
+3923 RRB 18:00 Deva
+4045 CFR 18:15 Suceava
+4110 TFC 18:30 Buzau
+4223 RRB 18:45 Satu Mare
+4345 CFR 19:00 Targu-Mures
+4423 TFC 19:15 Drobeta-Turnu Severin
+4546 RRB 19:30 Braila
+4610 CFR 19:45 Resita
+4723 TFC 20:00 Fagaras
+4843 RRB 20:15 Pitesti
+4923 CFR 20:30 Bistrita
+5010 TFC 20:45 Alba Iulia

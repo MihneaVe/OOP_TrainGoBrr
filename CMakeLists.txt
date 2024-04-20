@@ -101,8 +101,10 @@ FetchContent_MakeAvailable(googletest)
 add_executable(${PROJECT_NAME} main.cpp ${SOURCES}
         include/TakeAnAction.h
         include/CreateTickets.h
-        include/SeeRoutesIn.h
-        include/InRoutesAdmin.h)
+        include/SeeRoutesMain.h
+        include/InRoutesAdmin.h
+        include/InRoutesUsual.h
+        include/GetRoutesHelp.h)
 
 ###############################################################################
 

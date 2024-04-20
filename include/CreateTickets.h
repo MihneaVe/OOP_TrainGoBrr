@@ -13,7 +13,7 @@ private:
     std::string name, surname;
 public:
 
-    int getval(){
+    [[nodiscard]] int getval() const{
         return val;
     }
     //Up above stricly for unit tests

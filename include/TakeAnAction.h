@@ -6,7 +6,9 @@
 #include <fstream>
 #include <string>
 #include "CreateTickets.h"
-#include "SeeRoutesIn.h"
+#include "SeeRoutesMain.h"
+#include "InRoutesAdmin.h"
+#include "GetRoutesHelp.h"
 
 bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
     if (str1.length() != str2.length()) {
@@ -118,7 +120,7 @@ public:
             std::cout << "You have chosen to ";
             if (x == 1) {
                 std::cout << "view inbound trains.\n";
-                SeeRoutesIn in;
+                SeeRoutesMain in;
                 in.goSomewhere(0);
             } else if (x == 2) {
                 std::cout << "view outbound trains.\n";
@@ -243,6 +245,7 @@ public:
             std::cout << "Press 2 to see all current passwords\n";
             std::cout << "Press 3 to see profits from tickets on all routes\n";
             std::cout << "Press 4 to see how many tickets have been sold and the average cost of a ticket\n";
+            std::cout << "Press 5 to work with routes\n";
             std::cout << "Press 0 to return to normal mode\n";
             std::cin >> x;
             if(x==1) {
@@ -279,11 +282,28 @@ public:
                     std::cout<<"Invalid input...redirecting...";
                 }
                 AdminMenu();
-            }else if(x!=0){
+            }else if(x==5){
+                int numRoutes;
+
+                RouteInfo* routes = GetFromFile("C:\\Users\\Mihnea\\Documents\\Clion CPP projects\\OOP_TrainGoBrr\\GetRoutesIn.txt", numRoutes); // Replace "GetRoutesIn.txt" with your actual filename
+
+                for (int i = 0; i < numRoutes; ++i) {
+                    std::cout << "ID: " << routes[i].id << std::endl;
+                    std::cout << "Company: " << routes[i].company << std::endl;
+                    std::cout << "Hour: " << routes[i].hour << std::endl;
+                    std::cout << "Minute: " << routes[i].minute << std::endl;
+                    std::cout << "City: " << routes[i].city << std::endl;
+                    std::cout << std::endl;
+                }
+                InRoutesAdmin admin;
+                admin.showAdminConsole();
+                TakeAnAction_MainMenu reDo;
+                reDo.AdminMenu();
+            }else if(x!=0) {
                 std::cout<<"Invalid input! Try again!";
                 AdminMenu();
             }else{
-                PrintOptions();
+                    PrintOptions();
             }
         }else{
             //This is quite hardcoded but oh well...
