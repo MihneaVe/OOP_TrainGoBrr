@@ -36,10 +36,11 @@ public:
 };
 
 class TakeAnAction_MainMenu {
+protected:
+    static const int pass =989125; //constant password, will work anytime
 private:
     int x, l; // Int type variables for multiple purposes
     TakeAnAction_View* view{}; //Pointer to previously declared class
-    const int pass =989125; //constant password, will work anytime
     struct multipass {
         mutable int Setpass[10] = {-123, -123, -123, -123, -123, -123, -123, -123, -123,-123};
         multipass& operator=(int k) {
@@ -114,21 +115,17 @@ public:
             std::cout << "You have chosen to ";
             if (x == 1) {
                 std::cout << "view inbound trains.\n";
-                RouteInfo routesInfo = GetFromFile(R"(C:\Users\Mihnea\Documents\Clion CPP projects\OOP_TrainGoBrr\GetRoutesIn.txt)", numRoutes);
-                InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city); // Assuming you have an object of type InRoutesUsual
-                SeeRoutesMain* basePtr = &derived; //UPCASTING
+                RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
+                InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
+                SeeRoutesMain* basePtr = &derived;
                 basePtr->printRoutes();
                 std::cout << "Do you wish to reserve a ticket for one of these routes? (Press 1 for yes, any other number for no)\n";
                 std::cin >> x;
                 if (x == 1) {
                     std::cout << "What route?\n";
                     std::cin >> x;
-                    auto* derivedPtr = dynamic_cast<InRoutesUsual*>(basePtr);
-                    if (derivedPtr) {
-                        derivedPtr->WishReserve(x);
-                    } else {
-                        std::cout << "Cannot perform reservation as the route is not of the usual type.\n";
-                    }
+                    auto* derivedPtr = static_cast<InRoutesUsual*>(basePtr);
+                    derivedPtr->WishReserve(x);
                 }
                 PrintOptions();
             } else if (x == 2) {
@@ -292,7 +289,7 @@ public:
                 }
                 AdminMenu();
             }else if(x==5){
-                RouteInfo routesInfo = GetFromFile(R"(C:\Users\Mihnea\Documents\Clion CPP projects\OOP_TrainGoBrr\GetRoutesIn.txt)", numRoutes);
+                RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
                 InRoutesAdmin admin(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
                 admin.showAdminConsole();
                 AdminMenu();

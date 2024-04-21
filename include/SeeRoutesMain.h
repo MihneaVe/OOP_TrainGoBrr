@@ -39,6 +39,11 @@ public:
             city[i][0] = other.city[i][0];
         }
     }
+
+    [[nodiscard]] int getval() const{
+        return i;
+    };//FOR UNIT TESTING ONLY
+
     void virtual goSomewhere(int x){
         if (x==0){
             std::cout<<"Press 1 to see routes\n";

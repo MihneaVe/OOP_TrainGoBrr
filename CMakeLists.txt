@@ -104,7 +104,8 @@ add_executable(${PROJECT_NAME} main.cpp ${SOURCES}
         include/SeeRoutesMain.h
         include/InRoutesAdmin.h
         include/InRoutesUsual.h
-        include/GetRoutesHelp.h)
+        include/GetRoutesHelp.h
+        include/FindPassword.h)
 
 ###############################################################################
 

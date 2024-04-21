@@ -1,5 +1,6 @@
 #include <iostream>
 #include "TakeAnAction.h"
+#include "FindPassword.h"
 ///____----____----____----____----____----____----HereGoNotes----____----____----____----____----____----____|||
 
 ///Nothing to note yet :)
@@ -11,7 +12,7 @@
 int main() {
         int x;
         while(true) {
-            std::cout<<"Press 0 to open app.\nPress any other number to end process.\n";
+            std::cout<<"Press 0 to open app or 1 to find if your admin password is correct.\nPress any other number to end process.\n";
             std::cin>>x;
             if(x==0){
                 std::cout<<"Enter 0 for admin mode, 1 for normal mode.";
@@ -28,6 +29,10 @@ int main() {
                 } else {
                     std::cout << "Invalid input! Restarting...";
                 }
+            }else if(x==1){
+                std::cout<<"Please enter the password: \n";
+                std::cin>>x;
+                FindPassword::showcasepass(x);
             }else{
                 std::cout << "Shutting down...";
                 break;

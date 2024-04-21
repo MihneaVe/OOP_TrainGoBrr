@@ -17,6 +17,11 @@ public:
     InRoutesUsual(const InRoutesUsual& other) : SeeRoutesMain(other) {
         i = other.i;
     }
+
+    [[nodiscard]] int getval1() const{
+        return i;
+    };//FOR UNIT TESTING ONLY
+
     void WishReserve(int x){
         for(i=0; i<150; i++){
             if(x==list_id[i]){
