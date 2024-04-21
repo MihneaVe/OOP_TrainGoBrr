@@ -17,8 +17,8 @@ private:
     int traintemp, delaytemp;
     bool visited[150] = {false};
     int maxDifference=0,time1=0,time2=0,difference=0;
-    int hours,minutes;
     std::string placeholder;
+    int hours,minutes;
 public:
     InRoutesAdmin():SeeRoutesMain(), x(0), numRoutes(0), traintemp(0), delaytemp(0), maxDifference(0), time1(0),time2(0),difference(0),placeholder(""), hours(0),minutes(0){}
     InRoutesAdmin(const int id[150], std::string comp[150][4], std::string time[150][3], std::string cit[150][16])
