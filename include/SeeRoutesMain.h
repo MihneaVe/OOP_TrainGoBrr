@@ -8,7 +8,7 @@
 
 class SeeRoutesMain{
 private:
-    int i = 0;
+    int p = 0;
 protected:
     std::string toptext = "---T_ID------CPNY------HOUR------CITY---";
     int list_id[150]{};
@@ -20,28 +20,28 @@ public:
     SeeRoutesMain()= default;
     SeeRoutesMain(const int id[150], std::string comp[150][4], std::string time[150][3], std::string cit[150][16]){
         std::memcpy(list_id, id, sizeof(list_id));
-        for(i=0; i<150; i++){
-            company[i][0]=comp[i][0];
+        for(p=0; p<150; p++){
+            company[p][0]=comp[p][0];
         }
-        for(i=0; i<150; i++){
-            list_time[i][0]=time[i][0];
+        for(p=0; p<150; p++){
+            list_time[p][0]=time[p][0];
         }
-        for(i=0; i<150; i++){
-            city[i][0]=cit[i][0];
+        for(p=0; p<150; p++){
+            city[p][0]=cit[p][0];
         }
     }
     SeeRoutesMain(const SeeRoutesMain& other) {
         std::memcpy(list_id, other.list_id, sizeof(list_id));
 
-        for(i = 0; i < 150; i++) {
-            company[i][0] = other.company[i][0];
-            list_time[i][0] = other.list_time[i][0];
-            city[i][0] = other.city[i][0];
+        for(p = 0; p < 150; p++) {
+            company[p][0] = other.company[p][0];
+            list_time[p][0] = other.list_time[p][0];
+            city[p][0] = other.city[p][0];
         }
     }
 
     [[nodiscard]] int getval() const{
-        return i;
+        return p;
     };//FOR UNIT TESTING ONLY
 
     void virtual goSomewhere(int x){
@@ -58,8 +58,8 @@ public:
     }
     void virtual printRoutes(){
         std::cout<<toptext<<'\n';
-        for(i=0; i<150; i++){
-            std::cout<<list_id[i]<<"  "<<company[i][0]<<"  "<<list_time[i][0] << " : " << city[i][0] << "\n\n";
+        for(p=0; p<150; p++){
+            std::cout<<list_id[p]<<"  "<<company[p][0]<<"  "<<list_time[p][0] << " : " << city[p][0] << "\n\n";
         }
     }
     void TicketRoute(int x){
@@ -67,33 +67,33 @@ public:
         resTickets +=1;
     }
     void virtual AddDelay(int x, int delayMin){
-        for(i=0; i<150; i++){
-            if(list_id[i]==x || i==0){
+        for(p=0; p<150; p++){
+            if(list_id[p]==x || p==0){
                 std::ofstream fout("IssueRap.txt", std::ios::app);
-                fout<<"\nThere is a "<<delayMin<<" minute delay to the "<<x<<" route heading to: " <<city[i][0]<<".\n";
-                i=160;
+                fout<<"\nThere is a "<<delayMin<<" minute delay to the "<<x<<" route heading to: " <<city[p][0]<<".\n";
+                p=160;
             }
         }
-        if(i!=161){
+        if(p!=161){
             std::cout<<"There is no train with that id. Try again: \n";
-            std::cin>>i;
-            AddDelay(i, delayMin);
+            std::cin>>p;
+            AddDelay(p, delayMin);
         }
     }
     void virtual CancelTrain(int x){
         std::ofstream fout("IssueRap.txt", std::ios::app);
         fout<<"There has been a cancellation on route "<< x;
-        for(i=0; i<150; i++){
-            if(x==list_id[i] || i==0){
-                city[i][0]="Cancelled";
-                std::cout<<list_id[i]<<"  "<<company[i][0]<<"  "<<list_time[i][0] << " : " << city[i][0] << "\n\n";
-                i=160;
+        for(p=0; p<150; p++){
+            if(x==list_id[p] || p==0){
+                city[p][0]="Cancelled";
+                std::cout<<list_id[p]<<"  "<<company[p][0]<<"  "<<list_time[p][0] << " : " << city[p][0] << "\n\n";
+                p=160;
             }
         }
-        if(i!=161){
+        if(p!=161){
             std::cout<<"There is no train with that id. Try again: \n";
-            std::cin>>i;
-            CancelTrain(i);
+            std::cin>>p;
+            CancelTrain(p);
         }
     }
     virtual ~SeeRoutesMain()= default;
