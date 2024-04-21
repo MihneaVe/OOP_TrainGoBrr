@@ -30,36 +30,6 @@ TEST(SuiteName, CopyConstructor){
 
 ///TEMA 2 TESTS
 
-TEST(SuiteName, inheritance_example1){
-    int i=150;
-    RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", i);
-    InRoutesAdmin reDo(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
-    SeeRoutesMain *ptRe = &reDo;
-    auto *showPtr = static_cast<InRoutesAdmin *>(ptRe);
-    EXPECT_NO_THROW(showPtr->AddDelay(1023, 15));
-}
-
-TEST(SuiteName, inheritance_example2){
-    int i=150;
-    RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", i);
-    InRoutesAdmin reDo(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
-    SeeRoutesMain *ptRe = &reDo;
-    auto *showPtr = static_cast<InRoutesAdmin *>(ptRe);
-    std::cout << "For what train?\n";
-    EXPECT_NO_THROW(showPtr->CancelTrain(1023));
-}
-
-TEST(SuiteName, inheritance_example3){
-    int i=150;
-    RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", i);
-    InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
-    SeeRoutesMain* basePtr = &derived; //UPCASTING
-    EXPECT_NO_THROW(basePtr->printRoutes());
-    int x =1023;
-    auto* derivedPtr = static_cast<InRoutesUsual*>(basePtr);
-    EXPECT_NO_THROW(derivedPtr->WishReserve(x));
-}
-
 TEST (SuiteName, CopyConstructorInheritance2){
     InRoutesAdmin obj;
     const InRoutesAdmin& obj2=obj;
@@ -90,4 +60,30 @@ TEST (SuiteName, StaticIncorrectPass) {
     FindPassword::showcasepass(inCorrectPass);
     std::string output = ::testing::internal::GetCapturedStdout();
     EXPECT_EQ(output, "Your password is incorrect!\n");
+}
+
+TEST(SuiteName, inheritance_example1){
+    RouteInfo routesInfo;
+    InRoutesAdmin reDo(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
+    SeeRoutesMain *ptRe = &reDo;
+    auto *showPtr = static_cast<InRoutesAdmin *>(ptRe);
+    EXPECT_NO_THROW(showPtr->AddDelay(0, 15));
+}
+
+TEST(SuiteName, inheritance_example2){
+    RouteInfo routesInfo;
+    InRoutesAdmin reDo(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
+    SeeRoutesMain *ptRe = &reDo;
+    auto *showPtr = static_cast<InRoutesAdmin *>(ptRe);
+    std::cout << "For what train?\n";
+    EXPECT_NO_THROW(showPtr->CancelTrain(0));
+}
+
+TEST(SuiteName, inheritance_example3){
+    RouteInfo routesInfo;
+    InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
+    SeeRoutesMain* basePtr = &derived; //UPCASTING
+    EXPECT_NO_THROW(basePtr->printRoutes());
+    auto* derivedPtr = static_cast<InRoutesUsual*>(basePtr);
+    EXPECT_NO_THROW(derivedPtr->WishReserve(0));
 }

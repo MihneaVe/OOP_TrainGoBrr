@@ -115,7 +115,7 @@ public:
             std::cout << "You have chosen to ";
             if (x == 1) {
                 std::cout << "view inbound trains.\n";
-                RouteInfo routesInfo = GetFromFile("../include/GetRoutesIn.txt", numRoutes);
+                RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
                 InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
                 SeeRoutesMain* basePtr = &derived;
                 basePtr->printRoutes();
@@ -289,7 +289,7 @@ public:
                 }
                 AdminMenu();
             }else if(x==5){
-                RouteInfo routesInfo = GetFromFile("../include/GetRoutesIn.txt", numRoutes);
+                RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
                 InRoutesAdmin admin(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
                 admin.showAdminConsole();
                 AdminMenu();

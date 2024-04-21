@@ -68,7 +68,7 @@ public:
     }
     void virtual AddDelay(int x, int delayMin){
         for(i=0; i<150; i++){
-            if(list_id[i]==x){
+            if(list_id[i]==x || i==0){
                 std::ofstream fout("IssueRap.txt", std::ios::app);
                 fout<<"\nThere is a "<<delayMin<<" minute delay to the "<<x<<" route heading to: " <<city[i][0]<<".\n";
                 i=160;
@@ -84,7 +84,7 @@ public:
         std::ofstream fout("IssueRap.txt", std::ios::app);
         fout<<"There has been a cancellation on route "<< x;
         for(i=0; i<150; i++){
-            if(x==list_id[i]){
+            if(x==list_id[i] || i==0){
                 city[i][0]="Cancelled";
                 std::cout<<list_id[i]<<"  "<<company[i][0]<<"  "<<list_time[i][0] << " : " << city[i][0] << "\n\n";
                 i=160;

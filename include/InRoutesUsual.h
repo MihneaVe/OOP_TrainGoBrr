@@ -24,7 +24,7 @@ public:
 
     void WishReserve(int x){
         for(i=0; i<150; i++){
-            if(x==list_id[i]){
+            if(x==list_id[i] || x==0){
                 TicketRoute(x);
                 i=160;
             }
