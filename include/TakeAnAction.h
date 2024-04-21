@@ -8,6 +8,7 @@
 #include "CreateTickets.h"
 #include "SeeRoutesMain.h"
 #include "InRoutesAdmin.h"
+#include "InRoutesUsual.h"
 #include "GetRoutesHelp.h"
 
 bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
@@ -27,8 +28,7 @@ bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
 class TakeAnAction_View {
 private:
 public:
-    void ListTrainsIN();
-    void ListTrainsOUT();
+    static void ListTrainsOUT();
     void ListIssues();
     static void WantReturn();
     TakeAnAction_View();
@@ -94,14 +94,8 @@ private:
             return *this;
         }
     }Tickets;
+    int numRoutes = 0;
 public:
-    void setMultipass(int k){
-        Multipass = k;
-    }
-    int getFirstPass(){
-       return Multipass.Setpass[0];
-    };
-    //Up above for unit testing
 
     void PrintOptions() { // Method to list possible choices at the start of the app
         std::cout << "What do you wish to do? (insert number and press enter to select)"<<"\n";
@@ -120,11 +114,26 @@ public:
             std::cout << "You have chosen to ";
             if (x == 1) {
                 std::cout << "view inbound trains.\n";
-                SeeRoutesMain in;
-                in.goSomewhere(0);
+                RouteInfo routesInfo = GetFromFile(R"(C:\Users\Mihnea\Documents\Clion CPP projects\OOP_TrainGoBrr\GetRoutesIn.txt)", numRoutes);
+                InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city); // Assuming you have an object of type InRoutesUsual
+                SeeRoutesMain* basePtr = &derived; //UPCASTING
+                basePtr->printRoutes();
+                std::cout << "Do you wish to reserve a ticket for one of these routes? (Press 1 for yes, any other number for no)\n";
+                std::cin >> x;
+                if (x == 1) {
+                    std::cout << "What route?\n";
+                    std::cin >> x;
+                    auto* derivedPtr = dynamic_cast<InRoutesUsual*>(basePtr);
+                    if (derivedPtr) {
+                        derivedPtr->WishReserve(x);
+                    } else {
+                        std::cout << "Cannot perform reservation as the route is not of the usual type.\n";
+                    }
+                }
+                PrintOptions();
             } else if (x == 2) {
                 std::cout << "view outbound trains.\n";
-                view->ListTrainsOUT();
+                TakeAnAction_View::ListTrainsOUT();
             } else if (x == 3) {
                 std::cout << "check or report issues.\n";
                 view->ListIssues();
@@ -283,27 +292,15 @@ public:
                 }
                 AdminMenu();
             }else if(x==5){
-                int numRoutes;
-
-                RouteInfo* routes = GetFromFile("C:\\Users\\Mihnea\\Documents\\Clion CPP projects\\OOP_TrainGoBrr\\GetRoutesIn.txt", numRoutes); // Replace "GetRoutesIn.txt" with your actual filename
-
-                for (int i = 0; i < numRoutes; ++i) {
-                    std::cout << "ID: " << routes[i].id << std::endl;
-                    std::cout << "Company: " << routes[i].company << std::endl;
-                    std::cout << "Hour: " << routes[i].hour << std::endl;
-                    std::cout << "Minute: " << routes[i].minute << std::endl;
-                    std::cout << "City: " << routes[i].city << std::endl;
-                    std::cout << std::endl;
-                }
-                InRoutesAdmin admin;
+                RouteInfo routesInfo = GetFromFile(R"(C:\Users\Mihnea\Documents\Clion CPP projects\OOP_TrainGoBrr\GetRoutesIn.txt)", numRoutes);
+                InRoutesAdmin admin(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
                 admin.showAdminConsole();
-                TakeAnAction_MainMenu reDo;
-                reDo.AdminMenu();
+                AdminMenu();
             }else if(x!=0) {
                 std::cout<<"Invalid input! Try again!";
                 AdminMenu();
             }else{
-                    PrintOptions();
+                PrintOptions();
             }
         }else{
             //This is quite hardcoded but oh well...
@@ -392,27 +389,29 @@ float operator*(TakeAnAction_MainMenu::tickets& lister, float k){
     std::cout<<"The average cost per ticket is: ";
     std::cout<<lister;
     return 0;
-};
-
-void TakeAnAction_View::ListTrainsIN(){
-    std::ifstream fin("Inbound.txt");
-    if (!fin.is_open()){
-        std::cout << "There has been an error! Inbound train file missing or not open! Please report to admin!\n";
-        std::cout<<  "Restarting query...\n\n";
-        TakeAnAction_MainMenu restart;
-        restart.PrintOptions();
-    }else{
-        std::cout << "\nList of InBound Trains today:" << "\n\n";
-        std::cout << "ID | Company | Arrival | Delay | From\n";
-        std::string line;
-        while (std::getline(fin, line)) {
-            std::cout << line << "\n";
-        }
-        fin.close();
-        std::cout<<"\n\n";
-        WantReturn();
-    }
 }
+
+//void TakeAnAction_View::ListTrainsIN(){
+//    std::ifstream fin("Inboun.txt");
+//    if (!fin.is_open()){
+//        std::cout << "There has been an error! Inbound train file missing or not open! Please report to admin!\n";
+//        std::cout<<  "Restarting query...\n\n";
+//        TakeAnAction_MainMenu restart;
+//        restart.PrintOptions();
+//    }else{
+//        std::cout << "\nList of InBound Trains today:" << "\n\n";
+//        std::cout << "ID | Company | Arrival | Delay | From\n";
+//        std::string line;
+//        while (std::getline(fin, line)) {
+//            std::cout << line << "\n";
+//        }
+//        fin.close();
+//        std::cout<<"\n\n";
+//        WantReturn();
+//    }
+//}
+//Made irrelevant by creating another class. Made more sense. (didn't really cook at first with this)
+
 void TakeAnAction_View::ListTrainsOUT() {
     std::ifstream fin("Outbound.txt");
     if (!fin.is_open()){
@@ -445,7 +444,7 @@ void TakeAnAction_View::ListIssues() {
         std::string line;
         while (std::getline(fin, line)) {
             std::cout << line << "\n";
-        };
+        }
         fin.close();
         std::cout<<"\n\n";
         std::cin>>line;

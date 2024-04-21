@@ -9,20 +9,28 @@
 
 class InRoutesUsual:public SeeRoutesMain{
 private:
-    int x;
+    int i=0;
 public:
-    InRoutesUsual():SeeRoutesMain(), x(0){}
-    InRoutesUsual(const int id[150], std::string comp[150][4], std::string hour[150][3], std::string min[150][3], std::string cit[150][16], const int remTick[150][2])
-            : SeeRoutesMain(id, comp, hour, min, cit, remTick) {
+    InRoutesUsual():SeeRoutesMain(){}
+    InRoutesUsual(const int id[150], std::string comp[150][4], std::string time[150][3], std::string cit[150][16])
+            : SeeRoutesMain(id, comp, time, cit) {}
+    InRoutesUsual(const InRoutesUsual& other) : SeeRoutesMain(other) {
+        i = other.i;
     }
-    void reserveTickets(int route, int nr){
-        if(remTickets[route][1]<=nr){
-            std::cout<<"You have reserved the tickets on the selected train. Please note you will have to pay on the train.\n";
-            remTickets[route][1] -= nr;
-        }else{
-            std::cout<<"Please select a smaller number!";
+    void WishReserve(int x){
+        for(i=0; i<150; i++){
+            if(x==list_id[i]){
+                TicketRoute(x);
+                i=160;
+            }
+        }
+        if(i!=161){
+            std::cout<<"There is no train with that id.Try again...\n";
+            std::cin>>x;
+            WishReserve(x);
         }
     }
+    ~InRoutesUsual()=default;
 };
 
 

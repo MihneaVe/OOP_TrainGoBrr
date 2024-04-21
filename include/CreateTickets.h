@@ -1,5 +1,5 @@
 //
-// Created by Mih5[;79nea on 3/22/2024.
+// Created by Mihnea on 3/22/2024.
 //
 
 #ifndef OOP_CREATETICKETS_H
