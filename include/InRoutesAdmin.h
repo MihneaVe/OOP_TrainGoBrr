@@ -8,11 +8,6 @@
 #include "SeeRoutesMain.h"
 #include "GetRoutesHelp.h"
 
-int timeToMinutes(const std::string& timeStr) {
-    int hours, minutes;
-    sscanf(timeStr.c_str(), "%d:%d", &hours, &minutes);
-    return hours * 60 + minutes;
-}
 
 
 class InRoutesAdmin:public SeeRoutesMain{
@@ -22,13 +17,14 @@ private:
     int traintemp, delaytemp;
     bool visited[150] = {false};
     int maxDifference=0,time1=0,time2=0,difference=0;
+    int hours,minutes;
     std::string placeholder;
 public:
-    InRoutesAdmin():SeeRoutesMain(), x(0), numRoutes(0), traintemp(0), delaytemp(0), maxDifference(0), time1(0),time2(0),difference(0),placeholder(""){}
+    InRoutesAdmin():SeeRoutesMain(), x(0), numRoutes(0), traintemp(0), delaytemp(0), maxDifference(0), time1(0),time2(0),difference(0),placeholder(""), hours(0),minutes(0){}
     InRoutesAdmin(const int id[150], std::string comp[150][4], std::string time[150][3], std::string cit[150][16])
-            : SeeRoutesMain(id, comp, time, cit), x(0), numRoutes(0), traintemp(0), delaytemp(0), maxDifference(0), time1(0),time2(0),difference(0),placeholder("") {}
+            : SeeRoutesMain(id, comp, time, cit), x(0), numRoutes(0), traintemp(0), delaytemp(0), maxDifference(0), time1(0),time2(0),difference(0),placeholder(""), hours(0),minutes(0) {}
     InRoutesAdmin(const InRoutesAdmin& other)
-            : SeeRoutesMain(other), x(other.x), numRoutes(other.numRoutes), traintemp(other.traintemp), delaytemp(other.delaytemp) {}
+            : SeeRoutesMain(other), x(other.x), numRoutes(other.numRoutes), traintemp(other.traintemp), delaytemp(other.delaytemp), hours(0),minutes(0) {}
 
     [[nodiscard]] int getval2() const{
         return traintemp;
@@ -43,7 +39,10 @@ public:
         std::cin>>x;
         goToMenu(x);
     };
-
+    int timeToMinutes(const std::string& timeStr) {
+        sscanf(timeStr.c_str(), "%d:%d", &hours, &minutes);
+        return hours * 60 + minutes;
+    }
     void goToMenu(int y) {
         if (y == 1) {
             RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
