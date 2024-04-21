@@ -24,9 +24,9 @@ private:
     int maxDifference=0,time1=0,time2=0,difference=0;
     std::string placeholder;
 public:
-    InRoutesAdmin():SeeRoutesMain(), x(0), numRoutes(0), traintemp(0), delaytemp(0) {}
+    InRoutesAdmin():SeeRoutesMain(), x(0), numRoutes(0), traintemp(0), delaytemp(0), maxDifference(0), time1(0),time2(0),difference(0),placeholder(""){}
     InRoutesAdmin(const int id[150], std::string comp[150][4], std::string time[150][3], std::string cit[150][16])
-            : SeeRoutesMain(id, comp, time, cit), x(0), numRoutes(0), traintemp(0), delaytemp(0) {}
+            : SeeRoutesMain(id, comp, time, cit), x(0), numRoutes(0), traintemp(0), delaytemp(0), maxDifference(0), time1(0),time2(0),difference(0),placeholder("") {}
     InRoutesAdmin(const InRoutesAdmin& other)
             : SeeRoutesMain(other), x(other.x), numRoutes(other.numRoutes), traintemp(other.traintemp), delaytemp(other.delaytemp) {}
 
