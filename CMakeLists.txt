@@ -100,7 +100,12 @@ FetchContent_MakeAvailable(googletest)
 # NOTE: update executable name in .github/workflows/cmake.yml:25 when changing name here
 add_executable(${PROJECT_NAME} main.cpp ${SOURCES}
         include/TakeAnAction.h
-        include/CreateTickets.h)
+        include/CreateTickets.h
+        include/SeeRoutesMain.h
+        include/InRoutesAdmin.h
+        include/InRoutesUsual.h
+        include/GetRoutesHelp.h
+        include/FindPassword.h)
 
 ###############################################################################
 

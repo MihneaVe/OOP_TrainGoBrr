@@ -6,6 +6,10 @@
 #include <fstream>
 #include <string>
 #include "CreateTickets.h"
+#include "SeeRoutesMain.h"
+#include "InRoutesAdmin.h"
+#include "InRoutesUsual.h"
+#include "GetRoutesHelp.h"
 
 bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
     if (str1.length() != str2.length()) {
@@ -24,8 +28,7 @@ bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
 class TakeAnAction_View {
 private:
 public:
-    void ListTrainsIN();
-    void ListTrainsOUT();
+    static void ListTrainsOUT();
     void ListIssues();
     static void WantReturn();
     TakeAnAction_View();
@@ -33,10 +36,11 @@ public:
 };
 
 class TakeAnAction_MainMenu {
+protected:
+    static const int pass =989125; //constant password, will work anytime
 private:
     int x, l; // Int type variables for multiple purposes
     TakeAnAction_View* view{}; //Pointer to previously declared class
-    const int pass =989125; //constant password, will work anytime
     struct multipass {
         mutable int Setpass[10] = {-123, -123, -123, -123, -123, -123, -123, -123, -123,-123};
         multipass& operator=(int k) {
@@ -91,14 +95,8 @@ private:
             return *this;
         }
     }Tickets;
+    int numRoutes = 0;
 public:
-    void setMultipass(int k){
-        Multipass = k;
-    }
-    int getFirstPass(){
-       return Multipass.Setpass[0];
-    };
-    //Up above for unit testing
 
     void PrintOptions() { // Method to list possible choices at the start of the app
         std::cout << "What do you wish to do? (insert number and press enter to select)"<<"\n";
@@ -117,10 +115,22 @@ public:
             std::cout << "You have chosen to ";
             if (x == 1) {
                 std::cout << "view inbound trains.\n";
-                view->ListTrainsIN();
+                RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
+                InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
+                SeeRoutesMain* basePtr = &derived;
+                basePtr->printRoutes();
+                std::cout << "Do you wish to reserve a ticket for one of these routes? (Press 1 for yes, any other number for no)\n";
+                std::cin >> x;
+                if (x == 1) {
+                    std::cout << "What route?\n";
+                    std::cin >> x;
+                    auto* derivedPtr = static_cast<InRoutesUsual*>(basePtr);
+                    derivedPtr->WishReserve(x);
+                }
+                PrintOptions();
             } else if (x == 2) {
                 std::cout << "view outbound trains.\n";
-                view->ListTrainsOUT();
+                TakeAnAction_View::ListTrainsOUT();
             } else if (x == 3) {
                 std::cout << "check or report issues.\n";
                 view->ListIssues();
@@ -241,6 +251,7 @@ public:
             std::cout << "Press 2 to see all current passwords\n";
             std::cout << "Press 3 to see profits from tickets on all routes\n";
             std::cout << "Press 4 to see how many tickets have been sold and the average cost of a ticket\n";
+            std::cout << "Press 5 to work with routes\n";
             std::cout << "Press 0 to return to normal mode\n";
             std::cin >> x;
             if(x==1) {
@@ -277,7 +288,12 @@ public:
                     std::cout<<"Invalid input...redirecting...";
                 }
                 AdminMenu();
-            }else if(x!=0){
+            }else if(x==5){
+                RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
+                InRoutesAdmin admin(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
+                admin.showAdminConsole();
+                AdminMenu();
+            }else if(x!=0) {
                 std::cout<<"Invalid input! Try again!";
                 AdminMenu();
             }else{
@@ -370,27 +386,29 @@ float operator*(TakeAnAction_MainMenu::tickets& lister, float k){
     std::cout<<"The average cost per ticket is: ";
     std::cout<<lister;
     return 0;
-};
-
-void TakeAnAction_View::ListTrainsIN(){
-    std::ifstream fin("Inbound.txt");
-    if (!fin.is_open()){
-        std::cout << "There has been an error! Inbound train file missing or not open! Please report to admin!\n";
-        std::cout<<  "Restarting query...\n\n";
-        TakeAnAction_MainMenu restart;
-        restart.PrintOptions();
-    }else{
-        std::cout << "\nList of InBound Trains today:" << "\n\n";
-        std::cout << "ID | Company | Arrival | Delay | From\n";
-        std::string line;
-        while (std::getline(fin, line)) {
-            std::cout << line << "\n";
-        }
-        fin.close();
-        std::cout<<"\n\n";
-        WantReturn();
-    }
 }
+
+//void TakeAnAction_View::ListTrainsIN(){
+//    std::ifstream fin("Inboun.txt");
+//    if (!fin.is_open()){
+//        std::cout << "There has been an error! Inbound train file missing or not open! Please report to admin!\n";
+//        std::cout<<  "Restarting query...\n\n";
+//        TakeAnAction_MainMenu restart;
+//        restart.PrintOptions();
+//    }else{
+//        std::cout << "\nList of InBound Trains today:" << "\n\n";
+//        std::cout << "ID | Company | Arrival | Delay | From\n";
+//        std::string line;
+//        while (std::getline(fin, line)) {
+//            std::cout << line << "\n";
+//        }
+//        fin.close();
+//        std::cout<<"\n\n";
+//        WantReturn();
+//    }
+//}
+//Made irrelevant by creating another class. Made more sense. (didn't really cook at first with this)
+
 void TakeAnAction_View::ListTrainsOUT() {
     std::ifstream fin("Outbound.txt");
     if (!fin.is_open()){
@@ -423,7 +441,7 @@ void TakeAnAction_View::ListIssues() {
         std::string line;
         while (std::getline(fin, line)) {
             std::cout << line << "\n";
-        };
+        }
         fin.close();
         std::cout<<"\n\n";
         std::cin>>line;
