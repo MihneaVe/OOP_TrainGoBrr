@@ -7,16 +7,22 @@
 #include <unordered_set>
 #include <typeinfo>
 #include <iostream>
-#include <cxxabi.h>
+#include <regex>
 #include <memory>
 
 void checkType(const std::map<std::string, Station>& stations) {
-    for (const auto& pair : stations) {
-        int status = 0;
-        std::unique_ptr<char[], void(*)(void*)> realname(
-                abi::__cxa_demangle(typeid(pair.second).name(), nullptr, nullptr, &status), std::free);
+    std::regex typePattern("\\d+(.*)");  // Regular expression to match leading numbers
 
-        std::cout << "Type: " << (status == 0 ? realname.get() : typeid(pair.second).name())
+    for (const auto& pair : stations) {
+        std::string mangledName = typeid(pair.second).name();
+        std::smatch match;
+        std::string demangledName = mangledName;
+
+        if (std::regex_match(mangledName, match, typePattern) && match.size() > 1) {
+            demangledName = match.str(1);  // Extract the demangled type name
+        }
+
+        std::cout << "Type: " << demangledName
                   << ", Section: " << pair.second.getName() << std::endl;
     }
 }
