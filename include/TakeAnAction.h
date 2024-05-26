@@ -272,7 +272,7 @@ public:
     }
 
 
-    [[noreturn]] void AdminMenu(){
+    void AdminMenu(){
         if(x!=-2) {
             std::cout << "Press 1 to add another password\n"; ///TO DO ADD FUNCTIONALITY HERE AND DONT FORGET IT GOES TO NORMAL MODE BY ITSELF AFTER FUNCTION
             std::cout << "Press 2 to see all current passwords\n";
