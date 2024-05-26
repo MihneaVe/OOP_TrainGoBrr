@@ -45,7 +45,7 @@ public:
     }
     void goToMenu(int y) {
         if (y == 1) {
-            RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
+            RouteInfo routesInfo = GetFromFile("include/GetRoutesIn.txt", numRoutes);
             InRoutesAdmin reDo(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
             SeeRoutesMain *ptRe = &reDo;
             auto *showPtr = static_cast<InRoutesAdmin *>(ptRe);
@@ -54,7 +54,7 @@ public:
             showPtr->CancelTrain(traintemp);
             showAdminConsole();
         } else if (y == 2) {
-            RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
+            RouteInfo routesInfo = GetFromFile("include/GetRoutesIn.txt", numRoutes);
             InRoutesAdmin reDo(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
             SeeRoutesMain *ptRe = &reDo;
             auto *showPtr = static_cast<InRoutesAdmin *>(ptRe);
@@ -63,7 +63,7 @@ public:
             showPtr->AddDelay(traintemp, delaytemp);
             showAdminConsole();
         } else if (y == 3) {
-            RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
+            RouteInfo routesInfo = GetFromFile("include/GetRoutesIn.txt", numRoutes);
             InRoutesAdmin reDo(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
             SeeRoutesMain *ptRe = &reDo;
             auto *showPtr = static_cast<InRoutesAdmin *>(ptRe);
@@ -129,7 +129,7 @@ public:
         }
     }
 
-    ~InRoutesAdmin() = default;
+    ~InRoutesAdmin() override = default;
 };
 
 
