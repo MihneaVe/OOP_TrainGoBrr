@@ -10,7 +10,11 @@
 #include "InRoutesAdmin.h"
 #include "InRoutesUsual.h"
 #include "GetRoutesHelp.h"
-
+#include "Station.h"
+#include "StationManager.h"
+#include "MaintenanceSchedule.h"
+#include "MaintenanceTask.h"
+#include "RTTIcheck.h"
 
 bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
     if (str1.length() != str2.length()) {
@@ -39,7 +43,7 @@ protected:
     static const int pass =989125; //constant password, will work anytime
 private:
     int x, l; // Int type variables for multiple purposes
-    std::string str; //str type variable for multiple purposes
+    std::string str, s_str, t_str; //str type variables for multiple purposes
     TakeAnAction_View* view{}; //Pointer to previously declared class
     struct multipass {
         mutable int Setpass[10] = {-123, -123, -123, -123, -123, -123, -123, -123, -123,-123};
@@ -268,13 +272,15 @@ public:
     }
 
 
-    void AdminMenu(){
+    [[noreturn]] void AdminMenu(){
         if(x!=-2) {
             std::cout << "Press 1 to add another password\n"; ///TO DO ADD FUNCTIONALITY HERE AND DONT FORGET IT GOES TO NORMAL MODE BY ITSELF AFTER FUNCTION
             std::cout << "Press 2 to see all current passwords\n";
             std::cout << "Press 3 to see profits from tickets on all routes\n";
             std::cout << "Press 4 to see how many tickets have been sold and the average cost of a ticket\n";
             std::cout << "Press 5 to work with routes\n";
+            std::cout << "Press 6 to see sections of the station\n";
+            std::cout << "Press 7 to access maintenance\n";
             std::cout << "Press 0 to return to normal mode\n";
             std::cin >> x;
             if(x==1) {
@@ -316,6 +322,52 @@ public:
                 InRoutesAdmin admin(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
                 admin.showAdminConsole();
                 AdminMenu();
+            }else if(x==6){
+                StationManager<Station> stationManager;
+                while(true){
+                    std::cout<<"What do you wish to do?\n"
+                               "1. Add a new section to the railway\n"
+                               "2. Display all sections\n"
+                               "3. RTTI check\n"
+                               "0. Exit\n";
+                    std::cin>>x;
+                    if(x==1){
+                        std::cout<<"What is the name, number of platforms and location of the section?\n";
+                        std::cin>>str>>l>>s_str;
+                        stationManager.addStation(str,Station(str,l,s_str));
+                    }else if(x==2){
+                        std::cout<<"Here are all the sections available:\n";
+                        stationManager.displayStations();
+                    }else if(x==3){
+                        std::cout<<"Here is an RTTI check of the stations:\n";
+                        checkType(stationManager.getStations());
+                    }else{
+                        break;
+                    }
+                }
+            }else if(x==7){
+                MaintenanceSchedule<MaintenanceTask> maintenanceSchedule;
+                while(true){
+                    std::cout<<"What do you wish to do?\n"
+                               "1. Add a new repair job\n"
+                               "2. See all tasks\n"
+                               "3. RTTI check\n"
+                               "0. Exit\n";
+                    std::cin>>x;
+                    if(x==1){
+                        std::cout<<"What is the task, number of allotted hours and purpose of this task?\n";
+                        std::cin>>str>>l>>s_str;
+                        maintenanceSchedule.addTask(MaintenanceTask(str,l,s_str));
+                    }else if(x==2){
+                        std::cout<<"Here are all the tasks for today:\n";
+                        maintenanceSchedule.displayTasks();
+                    }else if(x==3){
+                        std::cout<<"Here is an RTTI check of the stations:\n";
+                        checkType(maintenanceSchedule.getTasks());
+                    }else{
+                        break;
+                    }
+                }
             }else if(x!=0) {
                 std::cout<<"Invalid input! Try again!";
                 AdminMenu();
