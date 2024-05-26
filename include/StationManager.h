@@ -3,28 +3,20 @@
 #define OOP_STATIONMANAGER_H
 
 #include <map>
+#include <iostream>
 
 template <typename T>
 class StationManager {
-public:
-    void addStation(const std::string& name, const T& station) {
-        stations.emplace(name, station);
-    }
-
-    void displayStations() const {
-        for (const auto& pair : stations) {
-            std::cout << "Station: " << pair.second.getName()
-                      << ", Platforms: " << pair.second.getPlatforms()
-                      << ", Location: " << pair.second.getLocation() << std::endl;
-        }
-    }
-
-    const std::map<std::string, T>& getStations() const {
-        return stations;
-    }
-
 private:
     std::map<std::string, T> stations;
+public:
+    void addStation(const std::string& name, const T& station);
+
+    void displayStations() const;
+
+    const std::map<std::string, T>& getStations() const;
+
+    ~StationManager();
 };
 
 #endif //OOP_STATIONMANAGER_H

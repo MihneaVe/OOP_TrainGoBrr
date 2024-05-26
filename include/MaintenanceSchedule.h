@@ -3,27 +3,20 @@
 
 #include <unordered_set>
 #include <functional>
+#include <iostream>
 
 template <typename T>
 class MaintenanceSchedule {
 private:
     std::unordered_set<T, std::hash<T>> tasks;
 public:
-    void addTask(const T& task) {
-        tasks.insert(task);
-    }
 
-    void displayTasks() const {
-        for (const auto& task : tasks) {
-            std::cout << "Task: " << task.getDescription()
-                      << ", Duration: " << task.getDuration()
-                      << " hours, Train ID: " << task.getTrainID() << std::endl;
-        }
-    }
+    void addTask(const T& task);
 
-    const std::unordered_set<T, std::hash<T>>& getTasks() const {
-        return tasks;
-    }
+    void displayTasks() const;
+
+    const std::unordered_set<T, std::hash<T>>& getTasks() const;
+
 };
 
 

@@ -1,5 +1,5 @@
 #include <utility>
-
+#include <iostream>
 
 #ifndef OOP_STATION_H
 #define OOP_STATION_H
@@ -11,11 +11,12 @@ private:
     int platforms;
     std::string location;
 public:
-    Station(std::string  name, int platforms, std::string  location)
-            : name(std::move(name)), platforms(platforms), location(std::move(location)) {}
+    Station(std::string  name, int platforms, std::string  location);
 
-    [[nodiscard]] std::string getName() const { return name; }
-    [[nodiscard]] int getPlatforms() const { return platforms; }
-    [[nodiscard]] std::string getLocation() const { return location; }
+    [[nodiscard]] std::string getName() const;
+    [[nodiscard]] int getPlatforms() const;
+    [[nodiscard]] std::string getLocation() const;
+
+    ~Station();
 };
 #endif //OOP_STATION_H

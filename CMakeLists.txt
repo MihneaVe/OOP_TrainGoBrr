@@ -168,6 +168,11 @@ add_executable(
         ${HEADERS}
         ${TESTS}
         ${SOURCES}
+        src/Station.cpp
+        src/StationManager.cpp
+        src/MaintenanceTask.cpp
+        src/MaintenanceSchedule.cpp
+        src/RTTIcheck.cpp
 )
 
 target_link_libraries(
