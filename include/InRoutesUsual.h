@@ -7,11 +7,46 @@
 
 #include "SeeRoutesMain.h"
 
+struct Train {
+    int trainNumber;
+    std::string company;
+    std::string departureTime;
+    std::string destination;
+
+};
+
 class InRoutesUsual:public SeeRoutesMain{
 private:
     int i=0;
+    std::list<Train> trains;
+
+    void readTrainsFromFile(const std::string& filePath) {
+        std::ifstream inputFile(filePath);
+        if (!inputFile) {
+            std::cerr << "Unable to open file: " << filePath << std::endl;
+            return;
+        }
+
+        std::string line;
+        while (std::getline(inputFile, line)) {
+            Train train;
+            std::istringstream iss(line);
+            iss >> train.trainNumber >> train.company >> train.departureTime;
+            std::getline(iss, train.destination);
+            // Remove leading whitespace from destination
+            if (!train.destination.empty() && train.destination.front() == ' ') {
+                train.destination.erase(train.destination.begin());
+            }
+            trains.push_back(train);
+        }
+
+        inputFile.close();
+    }
+
 public:
-    InRoutesUsual():SeeRoutesMain(){}
+    InRoutesUsual() : SeeRoutesMain() {
+        readTrainsFromFile("include/GetRoutesIn.txt");
+    }
     InRoutesUsual(const int id[150], std::string comp[150][4], std::string time[150][3], std::string cit[150][16])
             : SeeRoutesMain(id, comp, time, cit) {}
     InRoutesUsual(const InRoutesUsual& other) : SeeRoutesMain(other) {
@@ -35,6 +70,28 @@ public:
             WishReserve(x);
         }
     }
+
+    void printTrainDetails(int trainNumber) const {
+        auto it = std::find_if(trains.begin(), trains.end(),
+                               [trainNumber](const Train& train) {
+                                   return train.trainNumber == trainNumber;
+                               });
+
+        if (it != trains.end()) {
+            std::cout << "Train " << it->trainNumber << " (" << it->company << ") to " << it->destination
+                      << " departs at " << it->departureTime << "\n";
+        } else {
+            std::cout << "Train number " << trainNumber << " not found.\n";
+        }
+    }
+
+    bool hasTrainToDestination(const std::string& destination) const {
+        return std::any_of(trains.begin(), trains.end(),
+                           [&destination](const Train& train) {
+                               return train.destination == destination;
+                           });
+    }
+
     ~InRoutesUsual()=default;
 };
 

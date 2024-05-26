@@ -10,6 +10,11 @@
 #include "InRoutesAdmin.h"
 #include "InRoutesUsual.h"
 #include "GetRoutesHelp.h"
+#include "Station.h"
+#include "StationManager.h"
+#include "MaintenanceSchedule.h"
+#include "MaintenanceTask.h"
+#include "RTTIcheck.h"
 
 bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
     if (str1.length() != str2.length()) {
@@ -28,9 +33,7 @@ bool isEqualIgnoreCase(const std::string& str1, const std::string& str2) {
 class TakeAnAction_View {
 private:
 public:
-    static void ListTrainsOUT();
     void ListIssues();
-    static void WantReturn();
     TakeAnAction_View();
     ~TakeAnAction_View() = default;
 };
@@ -40,6 +43,7 @@ protected:
     static const int pass =989125; //constant password, will work anytime
 private:
     int x, l; // Int type variables for multiple purposes
+    std::string str, s_str, t_str; //str type variables for multiple purposes
     TakeAnAction_View* view{}; //Pointer to previously declared class
     struct multipass {
         mutable int Setpass[10] = {-123, -123, -123, -123, -123, -123, -123, -123, -123,-123};
@@ -115,22 +119,45 @@ public:
             std::cout << "You have chosen to ";
             if (x == 1) {
                 std::cout << "view inbound trains.\n";
-                RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
-                InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
-                SeeRoutesMain* basePtr = &derived;
-                basePtr->printRoutes();
-                std::cout << "Do you wish to reserve a ticket for one of these routes? (Press 1 for yes, any other number for no)\n";
+                std::cout << "Do you wish to:\n"
+                             "1. See all routes and/or reserve tickets to a route?\n"
+                             "2. See if there are trains that come from a city\n"
+                             "3. See details about a certain train\n";
                 std::cin >> x;
                 if (x == 1) {
-                    std::cout << "What route?\n";
-                    std::cin >> x;
-                    auto* derivedPtr = static_cast<InRoutesUsual*>(basePtr);
-                    derivedPtr->WishReserve(x);
+                    RouteInfo routesInfo = GetFromFile("include/GetRoutesIn.txt", numRoutes);
+                    InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
+                    SeeRoutesMain* basePtr = &derived;
+                    basePtr->printRoutes();
+                    std::cout<<"Do you want to reserve yet? (1 for yes, any other number for no)";
+                    std::cin>> x;
+                    if(x==1) {
+                        std::cout << "What route?\n";
+                        std::cin >> x;
+                        auto *derivedPtr = static_cast<InRoutesUsual *>(basePtr);
+                        derivedPtr->WishReserve(x);
+                    }
+                }
+                if (x == 2){
+                    std::cout<< "What city?\n";
+                    std::cin>>str;
+                    InRoutesUsual routes;
+                    bool exists = routes.hasTrainToDestination(str);
+                    std::cout << "There is " << (exists ? "at least a" : "not any") << "train to " << str<<".\n";
+                }
+                if(x == 3){
+                    std::cout<< "What train id do you wish to see?";
+                    std::cin>>x;
+                    InRoutesUsual routes;
+                    routes.printTrainDetails(x);
                 }
                 PrintOptions();
             } else if (x == 2) {
-                std::cout << "view outbound trains.\n";
-                TakeAnAction_View::ListTrainsOUT();
+                RouteInfo routesInfo = GetFromFile("include/GetRoutesOut.txt", numRoutes);
+                InRoutesUsual derived(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
+                SeeRoutesMain* basePtr = &derived;
+                basePtr->printRoutes();
+                PrintOptions();
             } else if (x == 3) {
                 std::cout << "check or report issues.\n";
                 view->ListIssues();
@@ -252,6 +279,8 @@ public:
             std::cout << "Press 3 to see profits from tickets on all routes\n";
             std::cout << "Press 4 to see how many tickets have been sold and the average cost of a ticket\n";
             std::cout << "Press 5 to work with routes\n";
+            std::cout << "Press 6 to see sections of the station\n";
+            std::cout << "Press 7 to access maintenance\n";
             std::cout << "Press 0 to return to normal mode\n";
             std::cin >> x;
             if(x==1) {
@@ -289,10 +318,56 @@ public:
                 }
                 AdminMenu();
             }else if(x==5){
-                RouteInfo routesInfo = GetFromFile("GetRoutesIn.txt", numRoutes);
+                RouteInfo routesInfo = GetFromFile("include/GetRoutesIn.txt", numRoutes);
                 InRoutesAdmin admin(routesInfo.id, routesInfo.company, routesInfo.time, routesInfo.city);
                 admin.showAdminConsole();
                 AdminMenu();
+            }else if(x==6){
+                StationManager<Station> stationManager;
+                while(true){
+                    std::cout<<"What do you wish to do?\n"
+                               "1. Add a new section to the railway\n"
+                               "2. Display all sections\n"
+                               "3. RTTI check\n"
+                               "0. Exit\n";
+                    std::cin>>x;
+                    if(x==1){
+                        std::cout<<"What is the name, number of platforms and location of the section?\n";
+                        std::cin>>str>>l>>s_str;
+                        stationManager.addStation(str,Station(str,l,s_str));
+                    }else if(x==2){
+                        std::cout<<"Here are all the sections available:\n";
+                        stationManager.displayStations();
+                    }else if(x==3){
+                        std::cout<<"Here is an RTTI check of the stations:\n";
+                        checkType(stationManager.getStations());
+                    }else{
+                        break;
+                    }
+                }
+            }else if(x==7){
+                MaintenanceSchedule<MaintenanceTask> maintenanceSchedule;
+                while(true){
+                    std::cout<<"What do you wish to do?\n"
+                               "1. Add a new repair job\n"
+                               "2. See all tasks\n"
+                               "3. RTTI check\n"
+                               "0. Exit\n";
+                    std::cin>>x;
+                    if(x==1){
+                        std::cout<<"What is the task, number of allotted hours and purpose of this task?\n";
+                        std::cin>>str>>l>>s_str;
+                        maintenanceSchedule.addTask(MaintenanceTask(str,l,s_str));
+                    }else if(x==2){
+                        std::cout<<"Here are all the tasks for today:\n";
+                        maintenanceSchedule.displayTasks();
+                    }else if(x==3){
+                        std::cout<<"Here is an RTTI check of the stations:\n";
+                        checkType(maintenanceSchedule.getTasks());
+                    }else{
+                        break;
+                    }
+                }
             }else if(x!=0) {
                 std::cout<<"Invalid input! Try again!";
                 AdminMenu();
@@ -321,7 +396,7 @@ public:
 
         // Create a new object using the appropriate constructor
         while (true) {
-            if(tempX == menu.pass){
+            if(tempX == TakeAnAction_MainMenu::pass){
                 // Assign temporary values to the object
                 menu.x = tempX;
                 break;
@@ -388,50 +463,10 @@ float operator*(TakeAnAction_MainMenu::tickets& lister, float k){
     return 0;
 }
 
-//void TakeAnAction_View::ListTrainsIN(){
-//    std::ifstream fin("Inboun.txt");
-//    if (!fin.is_open()){
-//        std::cout << "There has been an error! Inbound train file missing or not open! Please report to admin!\n";
-//        std::cout<<  "Restarting query...\n\n";
-//        TakeAnAction_MainMenu restart;
-//        restart.PrintOptions();
-//    }else{
-//        std::cout << "\nList of InBound Trains today:" << "\n\n";
-//        std::cout << "ID | Company | Arrival | Delay | From\n";
-//        std::string line;
-//        while (std::getline(fin, line)) {
-//            std::cout << line << "\n";
-//        }
-//        fin.close();
-//        std::cout<<"\n\n";
-//        WantReturn();
-//    }
-//}
-//Made irrelevant by creating another class. Made more sense. (didn't really cook at first with this)
-
-void TakeAnAction_View::ListTrainsOUT() {
-    std::ifstream fin("Outbound.txt");
-    if (!fin.is_open()){
-        std::cout << "There has been an error! Outbound train file missing or not open! Please report to admin!\n";
-        std::cout<<  "Restarting query...\n\n";
-        TakeAnAction_MainMenu restart;
-        restart.PrintOptions();
-    }else{
-        std::cout << "\nList of OutBound Trains today:" << "\n\n";
-        std::cout << "ID | Company | Arrival | Delay | To\n";
-        std::string line;
-        while (std::getline(fin, line)) {
-            std::cout << line << "\n";
-        }
-        fin.close();
-        std::cout<<"\n\n";
-        WantReturn();
-    }
-}
 void TakeAnAction_View::ListIssues() {
     std:: ifstream fin("IssueRap.txt");
     if (!fin.is_open()) {
-        std::cout << "There has been an error! Outbound train file missing or not open! Please report to admin!\n";
+        std::cout << "There has been an error! Issue file missing or not open! Please report to admin!\n";
         std::cout << "Restarting query...\n\n";
         TakeAnAction_MainMenu restart;
         restart.PrintOptions();
@@ -468,15 +503,6 @@ void TakeAnAction_View::ListIssues() {
             restart.PrintOptions();
         }
     }
-}
-void TakeAnAction_View::WantReturn(){
-    std::cout<<"Press any key and enter to return to the menu!";
-    std::string l;
-    std::cin>>l;
-
-    std::cout<<"\n\n";
-    TakeAnAction_MainMenu restart;
-    restart.PrintOptions();
 }
 
 TakeAnAction_View::TakeAnAction_View() {
